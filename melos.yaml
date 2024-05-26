@@ -1,0 +1,13 @@
+name: hugetooth
+
+packages:
+  - apps/**
+  - packages/**
+
+ide:
+  intellij:
+    enabled: false
+
+scripts:
+  analyze:
+    exec: dart analyze .
