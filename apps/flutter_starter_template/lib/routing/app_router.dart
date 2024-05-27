@@ -29,7 +29,7 @@ GoRouter goRouter(GoRouterRef ref) {
     initialLocation: '/login',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
-    refreshListenable: GoRouterRefreshStream(authRepository.onAuthStateChanged),
+    refreshListenable: GoRouterRefreshStream(authRepository.getUser()),
     redirect: (context, state) {
       // final onboardingRepository = ref.read(onboardingRepositoryProvider).requireValue;
       // final didCompleteOnboarding = onboardingRepository.isOnboardingComplete();
