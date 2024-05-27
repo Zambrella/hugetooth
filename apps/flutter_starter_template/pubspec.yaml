@@ -7,10 +7,14 @@ environment:
   sdk: "^3.3.0"
 
 dependencies:
+  analytics_core:
+    path: ../../packages/analytics_core
+  # analytics_firebase:
+  #   path: ../../packages/analytics_firebase
   auth_core:
     path: ../../packages/auth_core
-  auth_firebase:
-    path: ../../packages/auth_firebase
+  # auth_firebase:
+  #   path: ../../packages/auth_firebase
   flutter:
     sdk: flutter
   flutter_gen: any

@@ -2,7 +2,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_starter_template/analytics/providers/analytics_repository_provider.dart';
 import 'package:flutter_starter_template/app.dart';
+import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
 import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/logging/app_logging/logger_config.dart';
 import 'package:flutter_starter_template/logging/app_logging/provider_logger.dart';
@@ -103,8 +105,13 @@ Future<void> appStartup(AppStartupRef ref, Flavor appFlavor) async {
   await Future<void>.delayed(const Duration(seconds: 5));
 
   ref.read(flavorNotifierProvider.notifier).setFlavor(appFlavor);
-  // All asynchronous app initialization code should belong here.
+
+  // ----- All asynchronous app initialization code should belong here -----
   await ref.watch(sharedPreferencesProvider.future);
+
+  // Initialize analytics
+  final user = ref.read(currentUserProvider);
+  await ref.read(analyticsRepositoryProvider).init(userId: user?.id);
 
   logger.i('App initialization complete');
 }

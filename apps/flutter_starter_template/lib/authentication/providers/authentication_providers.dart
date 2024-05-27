@@ -8,3 +8,8 @@ part 'authentication_providers.g.dart';
 Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
   return ref.watch(authenticationRepositoryProvider).getUser();
 }
+
+@riverpod
+AppUser? currentUser(CurrentUserRef ref) {
+  return ref.watch(authStateChangesProvider).valueOrNull;
+}
