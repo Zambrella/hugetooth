@@ -11,3 +11,12 @@ ide:
 scripts:
   analyze:
     exec: dart analyze .
+
+  drb:
+    exec: dart run build_runner build
+
+  drbd:
+    exec: dart run build_runner build --delete-conflicting-outputs
+
+  test:
+    exec: dart test

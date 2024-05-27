@@ -1,7 +1,9 @@
 include: package:very_good_analysis/analysis_options.5.1.0.yaml
+
 linter:
   rules:
-    public_member_api_docs: false
+    public_member_api_docs: true
+    lines_longer_than_80_chars: true
 
 analyzer:
   plugins:
