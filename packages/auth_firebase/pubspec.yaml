@@ -1,0 +1,30 @@
+name: auth_firebase
+description: Firebase implementation of authentication
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: "^3.3.0"
+
+dependencies:
+  auth_core:
+    path: ../auth_core
+  firebase_auth: ^4.19.6
+  firebase_core: ^2.31.1
+  flutter:
+    sdk: flutter
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^6.1.0
+
+dev_dependencies:
+  firebase_auth_mocks: ^0.13.0
+  flutter_test:
+    sdk: flutter
+  mock_exceptions: ^0.8.2
+  mocktail: ^1.0.3
+  test: ^1.24.9
+  very_good_analysis: ^5.1.0
+
+flutter:
+  uses-material-design: true
+  generate: true

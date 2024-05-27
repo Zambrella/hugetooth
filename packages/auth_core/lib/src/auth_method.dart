@@ -11,7 +11,4 @@ enum AuthMethod {
 
   /// Apple social authentication.
   apple,
-
-  /// Anonymous authentication.
-  anonymous,
 }

@@ -29,5 +29,4 @@ const _$AuthMethodEnumMap = {
   AuthMethod.facebook: 'facebook',
   AuthMethod.google: 'google',
   AuthMethod.apple: 'apple',
-  AuthMethod.anonymous: 'anonymous',
 };

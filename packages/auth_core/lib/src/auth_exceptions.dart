@@ -1,7 +1,7 @@
 /// {@template auth_exception}
 /// Base class for all authentication exceptions.
 /// {@endtemplate}
-abstract class AuthException implements Exception {
+sealed class AuthException implements Exception {
   /// {@macro auth_exception}
   const AuthException(this.message, {this.stackTrace});
 
@@ -18,27 +18,32 @@ abstract class AuthException implements Exception {
 }
 
 /// User provided a password that does not match the password on record.
-sealed class WrongPasswordException extends AuthException {
+class WrongPasswordException extends AuthException {
+  /// User provided a password that does not match the password on record.
   const WrongPasswordException({super.stackTrace}) : super('Wrong password');
 }
 
 /// User provided an invalid email.
-sealed class InvalidEmailException extends AuthException {
+class InvalidEmailException extends AuthException {
+  /// User provided an invalid email.
   const InvalidEmailException({super.stackTrace}) : super('Invalid email');
 }
 
 /// User has been disabled so cannot be authenticated.
-sealed class UserDisabledException extends AuthException {
+class UserDisabledException extends AuthException {
+  /// User has been disabled so cannot be authenticated.
   const UserDisabledException({super.stackTrace}) : super('User disabled');
 }
 
 /// User not found in the database when trying to log in.
-sealed class UserNotFoundException extends AuthException {
+class UserNotFoundException extends AuthException {
+  /// User not found in the database when trying to log in.
   const UserNotFoundException({super.stackTrace}) : super('User not found');
 }
 
 /// Email is already in use by another account.
-sealed class EmailAlreadyInUseException extends AuthException {
+class EmailAlreadyInUseException extends AuthException {
+  /// Email is already in use by another account.
   const EmailAlreadyInUseException({super.stackTrace})
       : super(
           'Email already in use',
@@ -46,12 +51,14 @@ sealed class EmailAlreadyInUseException extends AuthException {
 }
 
 /// Password is too weak.
-sealed class WeakPasswordException extends AuthException {
+class WeakPasswordException extends AuthException {
+  /// Password is too weak.
   const WeakPasswordException({super.stackTrace}) : super('Weak password');
 }
 
 /// Thrown if the credential is malformed or has expired.
-sealed class InvalidCredentialException extends AuthException {
+class InvalidCredentialException extends AuthException {
+  /// Thrown if the credential is malformed or has expired.
   const InvalidCredentialException({super.stackTrace})
       : super(
           'Invalid credential',
@@ -59,14 +66,25 @@ sealed class InvalidCredentialException extends AuthException {
 }
 
 /// Thrown if the verification code provided is invalid.
-sealed class InvalidVerificationCode extends AuthException {
-  const InvalidVerificationCode({super.stackTrace})
+class InvalidVerificationCodeException extends AuthException {
+  /// Thrown if the verification code provided is invalid.
+  const InvalidVerificationCodeException({super.stackTrace})
       : super(
           'Invalid verification code',
         );
 }
 
+/// Thrown if the user needs to reauthenticate before performing the action.
+class RequiresReauthenticationException extends AuthException {
+  /// Thrown if the user needs to reauthenticate before performing the action.
+  const RequiresReauthenticationException({super.stackTrace})
+      : super(
+          'Requires reauthentication',
+        );
+}
+
 /// Thrown as a general authentication error that is not covered by any other.
-sealed class UnknownAuthException extends AuthException {
+class UnknownAuthException extends AuthException {
+  /// Thrown as a general authentication error that is not covered by any other.
   const UnknownAuthException(super.message, {super.stackTrace});
 }
