@@ -18,5 +18,12 @@ scripts:
   drbd:
     exec: dart run build_runner build --delete-conflicting-outputs
 
-  test:
+  dtest:
     exec: dart test
+    packageFilters:
+      scope: auth_core
+
+  ftest:
+    exec: flutter test
+    packageFilters:
+      scope: [auth_firebase, fluter_starter_template]
