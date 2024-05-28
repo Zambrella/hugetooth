@@ -27,3 +27,12 @@ scripts:
     exec: flutter test
     packageFilters:
       scope: [auth_firebase, fluter_starter_template]
+
+  upgrade:
+    exec: flutter pub upgrade
+
+  pubget:
+    exec: flutter pub get
+
+  clean:
+    exec: flutter clean

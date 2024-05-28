@@ -4,7 +4,8 @@ version: 0.1.0+1
 publish_to: none
 
 environment:
-  sdk: "^3.3.0"
+  sdk: "^3.4.0"
+  flutter: "^3.22.0"
 
 dependencies:
   auth_core:
@@ -22,7 +23,7 @@ dev_dependencies:
     sdk: flutter
   mock_exceptions: ^0.8.2
   mocktail: ^1.0.3
-  test: ^1.24.9
+  test: ^1.25.2
   very_good_analysis: ^5.1.0
 
 flutter:
