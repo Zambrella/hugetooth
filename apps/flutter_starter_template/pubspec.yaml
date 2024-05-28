@@ -16,6 +16,10 @@ dependencies:
     path: ../../packages/auth_core
   # auth_firebase:
   #   path: ../../packages/auth_firebase
+  error_logging_core:
+    path: ../../packages/error_logging_core
+  # error_logging_crashlytics:
+  #   path: ../../packages/error_logging_crashlytics
   flutter:
     sdk: flutter
   flutter_gen: any

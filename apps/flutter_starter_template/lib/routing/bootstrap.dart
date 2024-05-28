@@ -1,4 +1,5 @@
 // ignore:depend_on_referenced_packages
+import 'package:error_logging_core/error_logging_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/logging/app_logging/logger_config.dart';
 import 'package:flutter_starter_template/logging/app_logging/provider_logger.dart';
 import 'package:flutter_starter_template/logging/providers/logger_provider.dart';
-import 'package:flutter_starter_template/logging/repository/logging_repository.impl.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -22,12 +22,14 @@ Future<void> bootstrap(Flavor flavor) async {
   //* turn off the # in the URLs on the web
   usePathUrlStrategy();
 
+  final loggingRepository = FakeErrorLoggingRepository();
+
   final logger = Logger(
     filter: AppLogFilter(flavor),
     printer: PrettyPrinter(
       methodCount: 0,
     ),
-    output: AppLogOutput(const LoggingRepositoryImpl()),
+    output: AppLogOutput(loggingRepository),
   );
 
   // * Register error handlers. For more info, see:

@@ -1,6 +1,6 @@
-# melos_managed_dependency_overrides: auth_core,auth_firebase
+# melos_managed_dependency_overrides: analytics_core,auth_core
 dependency_overrides:
+  analytics_core:
+    path: ../../packages/analytics_core
   auth_core:
     path: ../../packages/auth_core
-  auth_firebase:
-    path: ../../packages/auth_firebase

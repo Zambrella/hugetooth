@@ -1,0 +1,23 @@
+name: error_logging_crashlytics
+description: Firebase Crashlytics implementation of error logging
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: "^3.4.0"
+  flutter: "^3.22.0"
+
+dependencies:
+  error_logging_core:
+    path: ../error_logging_core
+  firebase_analytics: ^10.10.7
+  firebase_core: ^2.31.1
+  firebase_crashlytics: ^3.5.7
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.3
+  very_good_analysis: ^5.1.0
