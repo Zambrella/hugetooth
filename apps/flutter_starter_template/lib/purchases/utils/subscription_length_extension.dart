@@ -18,6 +18,8 @@ extension SubscriptionLengthX on SubscriptionLength {
         return 'Bi-Annual';
       case SubscriptionLength.oneYear:
         return 'Annual';
+      case SubscriptionLength.lifetime:
+        return 'Lifetime';
       case SubscriptionLength.unknown:
         return 'Unknown';
     }
@@ -38,6 +40,8 @@ extension SubscriptionLengthX on SubscriptionLength {
         return 'six months';
       case SubscriptionLength.oneYear:
         return 'year';
+      case SubscriptionLength.lifetime:
+        return 'lifetime';
       case SubscriptionLength.unknown:
         return 'error';
     }

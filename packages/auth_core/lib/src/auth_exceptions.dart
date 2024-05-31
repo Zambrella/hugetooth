@@ -1,7 +1,7 @@
 /// {@template auth_exception}
 /// Base class for all authentication exceptions.
 /// {@endtemplate}
-sealed class AuthException implements Exception {
+abstract class AuthException implements Exception {
   /// {@macro auth_exception}
   const AuthException(this.message, {this.stackTrace});
 

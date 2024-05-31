@@ -18,6 +18,9 @@ enum SubscriptionLength {
   /// 1 year
   oneYear,
 
+  /// Lifetime subscription
+  lifetime,
+
   /// Unknown subscription length
   unknown,
 }

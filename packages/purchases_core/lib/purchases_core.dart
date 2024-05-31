@@ -2,6 +2,7 @@
 library;
 
 export 'src/fake_purchases_repository.dart';
+export 'src/purchases_exceptions.dart';
 export 'src/purchases_repository.abs.dart';
 export 'src/subscription_length.dart';
 export 'src/subscription_package.dart';
