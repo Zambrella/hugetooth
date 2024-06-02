@@ -3,9 +3,9 @@
 /// When creating a new event to track, extend this class and provide the event
 /// name and parameters.
 /// {@endtemplate}
-abstract class AnalyticsEvent {
+abstract class CustomAnalyticsEvent {
   /// {@macro analytics_event}
-  const AnalyticsEvent(
+  const CustomAnalyticsEvent(
     this.eventName, {
     this.parameters,
   });

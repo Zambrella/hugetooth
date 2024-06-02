@@ -47,7 +47,7 @@ class FirebaseAnalyticsRepository implements AnalyticsRepository {
   }
 
   @override
-  Future<void> logEvent(AnalyticsEvent event) async {
+  Future<void> logCustomEvent(CustomAnalyticsEvent event) async {
     try {
       await _analytics.logEvent(
         name: event.eventName,

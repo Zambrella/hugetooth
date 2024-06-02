@@ -1,4 +1,4 @@
-import 'package:analytics_core/src/analytics_event.dart';
+import 'package:analytics_core/src/custom_analytics_event.dart';
 import 'package:analytics_core/src/server_location.dart';
 import 'package:analytics_core/src/user_property.dart';
 
@@ -26,7 +26,7 @@ abstract class AnalyticsRepository {
   Future<void> enableAnalytics({required bool enable});
 
   /// Logs an event with the given [event].
-  Future<void> logEvent(AnalyticsEvent event);
+  Future<void> logCustomEvent(CustomAnalyticsEvent event);
 
   /// Sets a user property with the given [userProperty].
   Future<void> setUserProperty(UserProperty userProperty);

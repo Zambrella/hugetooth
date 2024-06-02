@@ -36,7 +36,7 @@ class FakeAnalyticsRepository implements AnalyticsRepository {
   }
 
   @override
-  Future<void> logEvent(AnalyticsEvent event) async {
+  Future<void> logCustomEvent(CustomAnalyticsEvent event) async {
     _events[event.eventName] = event.parameters;
   }
 
