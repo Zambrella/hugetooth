@@ -1,4 +1,4 @@
-import 'package:flutter_starter_template/authentication/providers/authentication_repository_provider.dart';
+import 'package:flutter_starter_template/repository_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'logout_controller.g.dart';
@@ -13,7 +13,7 @@ class LogoutController extends _$LogoutController {
   Future<void> logout() async {
     state = const AsyncLoading();
     try {
-      final _ = await ref.watch(authenticationRepositoryProvider).logOut();
+      final _ = await ref.watch(authRepositoryProvider).logOut();
       state = const AsyncData(null);
     } catch (e, st) {
       state = AsyncError(e, st);

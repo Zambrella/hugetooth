@@ -1,17 +1,16 @@
 // ignore:depend_on_referenced_packages
+import 'dart:async';
+
 import 'package:error_logging_core/error_logging_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter_template/analytics/providers/analytics_repository_provider.dart';
 import 'package:flutter_starter_template/app.dart';
-import 'package:flutter_starter_template/authentication/providers/authentication_repository_provider.dart';
+import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
 import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/logging/app_logging/logger_config.dart';
 import 'package:flutter_starter_template/logging/app_logging/provider_logger.dart';
-import 'package:flutter_starter_template/logging/providers/error_logging_repository_provider.dart';
 import 'package:flutter_starter_template/logging/providers/logger_provider.dart';
-import 'package:flutter_starter_template/purchases/providers/purchases_repository_provider.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -110,8 +109,14 @@ Future<void> appStartup(AppStartupRef ref, Flavor appFlavor) async {
   // ignore: cascade_invocations
   logger.i('Starting app initialization');
 
-  // Simulating a long startup time
-  await Future<void>.delayed(const Duration(seconds: 5));
+  // Waiting for the intial auth event to complete to prevent potential of going from loading -> unauthenticated -> authenticated
+  // when the user is already authenticated, it's just that the auth state hasn't been emitted yet.
+  // If it takes too long, we'll continue with the initialization logic.
+  try {
+    await ref.read(authStateChangesProvider.future).timeout(const Duration(seconds: 5));
+  } on TimeoutException {
+    logger.w('Auth state changes took too long to complete. Continuing with initialization logic.');
+  }
 
   // ----- All asynchronous app initialization code should belong here -----
   await ref.watch(sharedPreferencesProvider.future);

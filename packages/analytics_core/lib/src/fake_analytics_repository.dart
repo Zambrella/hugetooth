@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:analytics_core/analytics_core.dart';
 
 /// A fake implementation of [AnalyticsRepository] for testing.
@@ -35,6 +37,7 @@ class FakeAnalyticsRepository implements AnalyticsRepository {
   @override
   Future<void> logCustomEvent(CustomAnalyticsEvent event) async {
     _events[event.eventName] = event.parameters;
+    log(dump());
   }
 
   @override
@@ -63,7 +66,6 @@ class FakeAnalyticsRepository implements AnalyticsRepository {
 
   /// Returns a string representation of the data stored.
   String dump() {
-    // ignore: lines_longer_than_80_chars
     return 'userId: $_userId, serverLocation: $_serverLocation, enabled: $_enabled, userProperties: $_userProperties, events: $_events';
   }
 }
