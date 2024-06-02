@@ -13,17 +13,16 @@ abstract class AnalyticsRepository {
   /// Initializes the analytics repository.
   /// Does not have to be called before other methods but would be a good
   /// place to set up any required configurations.
-  Future<void> init({
-    String? userId,
-    ServerLocation? serverLocation,
-    bool? enabled,
-  });
+  Future<void> init({ServerLocation? serverLocation});
 
   /// Returns whether analytics is enabled.
   Future<bool> isEnabled();
 
   /// Enables or disables analytics.
   Future<void> enableAnalytics({required bool enable});
+
+  /// Disables analytics.
+  Future<void> disableAnalytics() => enableAnalytics(enable: false);
 
   /// Logs an event with the given [event].
   Future<void> logCustomEvent(CustomAnalyticsEvent event);

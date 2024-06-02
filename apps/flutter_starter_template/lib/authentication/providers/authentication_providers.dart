@@ -11,5 +11,5 @@ Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
 
 @Riverpod(keepAlive: true)
 AppUser? currentUser(CurrentUserRef ref) {
-  return ref.watch(authStateChangesProvider).valueOrNull;
+  return ref.watch(authStateChangesProvider).value;
 }

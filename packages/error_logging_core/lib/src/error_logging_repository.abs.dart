@@ -24,4 +24,11 @@ abstract class ErrorLoggingRepository {
 
   /// Sets the user ID for error logging.
   Future<void> setUserId(String userId);
+
+  /// Unsets the user ID for error logging.
+  /// Likely called when a user logs out.
+  Future<void> unsetUserId();
+
+  /// Initializes the error logging service.
+  Future<void> init();
 }

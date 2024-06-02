@@ -7,15 +7,29 @@ import 'package:flutter_starter_template/theme/dark_theme.dart';
 import 'package:flutter_starter_template/theme/light_theme.dart';
 import 'package:flutter_starter_template/theme/selected_theme.dart';
 
-class App extends ConsumerWidget {
+class App extends ConsumerStatefulWidget {
   const App({required this.appFlavor, super.key});
 
   final Flavor appFlavor;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final appStartupState = ref.watch(appStartupProvider(appFlavor));
-    final goRouter = ref.watch(goRouterProvider);
+  ConsumerState<App> createState() => _AppState();
+}
+
+class _AppState extends ConsumerState<App> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(flavorNotifierProvider.notifier).setFlavor(widget.appFlavor);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final appStartupState = ref.watch(appStartupProvider(widget.appFlavor));
+    final goRouter = ref.watch(goRouterProvider(widget.appFlavor));
+
     return MaterialApp.router(
       routerConfig: goRouter,
       theme: lightTheme,
@@ -39,7 +53,7 @@ class App extends ConsumerWidget {
           loading: () => const AppStartupLoadingWidget(),
           error: (e, st) => AppStartupErrorWidget(
             message: e.toString(),
-            onRetry: () => ref.invalidate(appStartupProvider),
+            onRetry: () => ref.invalidate(appStartupProvider(widget.appFlavor)),
           ),
         );
       },
@@ -52,9 +66,8 @@ class AppStartupLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: CircularProgressIndicator(),
       ),
     );
@@ -73,12 +86,14 @@ class AppStartupErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(message, style: Theme.of(context).textTheme.headlineSmall),
+            Text(
+              'Unexpected error!',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             ElevatedButton(
               onPressed: onRetry,
               child: const Text('Retry'),

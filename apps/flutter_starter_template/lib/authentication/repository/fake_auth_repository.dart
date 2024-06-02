@@ -1,26 +1,53 @@
 import 'dart:async';
 
-import 'package:auth_core/src/app_user.dart';
-import 'package:auth_core/src/auth_method.dart';
-import 'package:auth_core/src/auth_repository.abs.dart';
-import 'package:auth_core/src/auth_social.dart';
+import 'package:auth_core/auth_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// A fake implementation of [AuthRepository] for testing.
 class FakeAuthRepository implements AuthRepository {
   /// A fake implementation of [AuthRepository] for testing.
   FakeAuthRepository() {
     _currentUser = null;
-    _userController = StreamController<AppUser?>.broadcast();
+    _userController = StreamController<AppUser?>.broadcast(
+      onListen: getSavedUser,
+    );
   }
 
-  static final _fakeDelay = Future<void>.delayed(const Duration(seconds: 1));
+  static const _kUserKey = 'isLoggedIn';
+
+  Future<void> getSavedUser() async {
+    print('Getting saved user');
+    await _fakeDelay();
+    final preferences = await SharedPreferences.getInstance();
+    final isLoggedIn = preferences.getBool(_kUserKey);
+    // ignore: use_if_null_to_convert_nulls_to_bools
+    if (isLoggedIn == true) {
+      print('Is logged in');
+      const user = AppUser(
+        email: 'Fake@email.com',
+        authMethod: AuthMethod.email,
+        id: 'fake_id',
+        name: 'Fake User',
+      );
+      _currentUser = user;
+      _userController.add(_currentUser);
+    } else {
+      print('Is not logged in');
+      _currentUser = null;
+      _userController.add(_currentUser);
+    }
+  }
+
+  Future<void> _fakeDelay() async {
+    return Future<void>.delayed(const Duration(seconds: 1));
+  }
 
   AppUser? _currentUser;
   late final StreamController<AppUser?> _userController;
 
   @override
   Future<void> deleteAccount() async {
-    await _fakeDelay;
+    await _fakeDelay();
     _currentUser = null;
     _userController.add(_currentUser);
     return;
@@ -28,7 +55,7 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   Future<void> forgotPassword(String email) async {
-    await _fakeDelay;
+    await _fakeDelay();
     return;
   }
 
@@ -42,7 +69,9 @@ class FakeAuthRepository implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    await _fakeDelay;
+    await _fakeDelay();
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(_kUserKey, true);
     final user = AppUser(
       email: email,
       authMethod: AuthMethod.email,
@@ -56,7 +85,9 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   Future<AppUser?> logInWithSocial(AuthSocial socialMethod) async {
-    await _fakeDelay;
+    await _fakeDelay();
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(_kUserKey, true);
     final user = AppUser(
       email: 'FakeEmail@test.com',
       authMethod: switch (socialMethod) {
@@ -74,7 +105,9 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   Future<void> logOut() async {
-    await _fakeDelay;
+    await _fakeDelay();
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(_kUserKey, false);
     _currentUser = null;
     _userController.add(_currentUser);
   }
@@ -84,7 +117,9 @@ class FakeAuthRepository implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    await _fakeDelay;
+    await _fakeDelay();
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(_kUserKey, true);
     const user = AppUser(
       email: 'FakeEmail@test.com',
       authMethod: AuthMethod.email,
@@ -101,7 +136,7 @@ class FakeAuthRepository implements AuthRepository {
     required String newEmail,
     required String password,
   }) async {
-    await _fakeDelay;
+    await _fakeDelay();
     return;
   }
 
@@ -110,7 +145,7 @@ class FakeAuthRepository implements AuthRepository {
     required String oldPassword,
     required String newPassword,
   }) async {
-    await _fakeDelay;
+    await _fakeDelay();
     return;
   }
 }

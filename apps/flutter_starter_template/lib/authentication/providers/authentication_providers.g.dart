@@ -21,7 +21,7 @@ final authStateChangesProvider = StreamProvider<AppUser?>.internal(
 );
 
 typedef AuthStateChangesRef = StreamProviderRef<AppUser?>;
-String _$currentUserHash() => r'94112d350f56e74292bca289495dd12560b73e78';
+String _$currentUserHash() => r'f1857813c32d13bf9ee6d9a89039646edcc90ed8';
 
 /// See also [currentUser].
 @ProviderFor(currentUser)

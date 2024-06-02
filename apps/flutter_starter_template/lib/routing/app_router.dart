@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_starter_template/authentication/presentation/pages/login_page.dart';
 import 'package:flutter_starter_template/authentication/presentation/pages/register_page.dart';
 import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
-import 'package:flutter_starter_template/authentication/providers/authentication_repository_provider.dart';
+import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/home/presentation/home_page.dart';
+import 'package:flutter_starter_template/routing/bootstrap.dart';
 import 'package:flutter_starter_template/routing/go_router_refresh_stream.dart';
 import 'package:flutter_starter_template/routing/not_found_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -20,15 +21,18 @@ enum AppRoute {
   home,
 }
 
-@riverpod
-GoRouter goRouter(GoRouterRef ref) {
-  final authRepository = ref.watch(authenticationRepositoryProvider);
+@Riverpod(keepAlive: true)
+GoRouter goRouter(GoRouterRef ref, Flavor flavor) {
+  final appStartupState = ref.watch(appStartupProvider(flavor));
   return GoRouter(
     initialLocation: '/home',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
-    refreshListenable: GoRouterRefreshStream(authRepository.getUser()),
+    refreshListenable: GoRouterRefreshStreamProvider(authStateChangesProvider, ref),
     redirect: (context, state) {
+      if (appStartupState.isLoading || appStartupState.hasError) {
+        return '/startup';
+      }
       final path = state.uri.path;
       final isLoggedIn = ref.read(currentUserProvider) != null;
 
@@ -52,6 +56,12 @@ GoRouter goRouter(GoRouterRef ref) {
       return null;
     },
     routes: [
+      GoRoute(
+        path: '/startup',
+        pageBuilder: (context, state) {
+          return const NoTransitionPage(child: SizedBox.shrink());
+        },
+      ),
       GoRoute(
         path: '/login',
         name: AppRoute.login.name,

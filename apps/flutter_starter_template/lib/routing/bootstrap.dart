@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/analytics/providers/analytics_repository_provider.dart';
 import 'package:flutter_starter_template/app.dart';
-import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
+import 'package:flutter_starter_template/authentication/providers/authentication_repository_provider.dart';
 import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/logging/app_logging/logger_config.dart';
 import 'package:flutter_starter_template/logging/app_logging/provider_logger.dart';
+import 'package:flutter_starter_template/logging/providers/error_logging_repository_provider.dart';
 import 'package:flutter_starter_template/logging/providers/logger_provider.dart';
+import 'package:flutter_starter_template/purchases/providers/purchases_repository_provider.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -70,7 +72,7 @@ void registerErrorHandlers(Logger logger) {
 
   // * Show some error UI when any widget in the app fails to build
   ErrorWidget.builder = (FlutterErrorDetails details) {
-    logger.e(
+    logger.w(
       'Error building widget: ${details.exception}',
       error: details.exception,
       stackTrace: details.stack,
@@ -95,25 +97,29 @@ void registerErrorHandlers(Logger logger) {
 /// as this may trigger unwanted rebuilds.
 @Riverpod(keepAlive: true)
 Future<void> appStartup(AppStartupRef ref, Flavor appFlavor) async {
-  final logger = ref.watch(loggerProvider);
   ref.onDispose(() {
     // ensure we invalidate all the providers we depend on
-    ref.invalidate(sharedPreferencesProvider);
+    ref
+      ..invalidate(sharedPreferencesProvider)
+      ..invalidate(errorLoggingRepositoryProvider)
+      ..invalidate(analyticsRepositoryProvider)
+      ..invalidate(purchasesRepositoryProvider);
   });
 
+  final logger = ref.read(loggerProvider);
+  // ignore: cascade_invocations
   logger.i('Starting app initialization');
 
   // Simulating a long startup time
   await Future<void>.delayed(const Duration(seconds: 5));
 
-  ref.read(flavorNotifierProvider.notifier).setFlavor(appFlavor);
-
   // ----- All asynchronous app initialization code should belong here -----
   await ref.watch(sharedPreferencesProvider.future);
 
-  // Initialize analytics
-  final user = ref.read(currentUserProvider);
-  await ref.read(analyticsRepositoryProvider).init(userId: user?.id);
+  // Initialize services
+  await ref.read(errorLoggingRepositoryProvider).init();
+  await ref.read(analyticsRepositoryProvider).init();
+  await ref.read(purchasesRepositoryProvider).init(isDebugMode: kDebugMode);
 
   logger.i('App initialization complete');
 }

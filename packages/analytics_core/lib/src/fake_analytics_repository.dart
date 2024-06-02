@@ -15,25 +15,22 @@ class FakeAnalyticsRepository implements AnalyticsRepository {
   final Map<String, dynamic> _events = {};
 
   @override
-  Future<void> enableAnalytics({required bool enable}) async {
-    _enabled = enable;
-  }
-
-  @override
-  Future<void> init({
-    String? userId,
-    ServerLocation? serverLocation,
-    bool? enabled,
-  }) async {
-    _userId = userId;
+  Future<void> init({ServerLocation? serverLocation}) async {
     _serverLocation = serverLocation;
-    _enabled = enabled;
   }
 
   @override
   Future<bool> isEnabled() async {
     return Future.value(_enabled ?? false);
   }
+
+  @override
+  Future<void> enableAnalytics({required bool enable}) async {
+    _enabled = enable;
+  }
+
+  @override
+  Future<void> disableAnalytics() => enableAnalytics(enable: false);
 
   @override
   Future<void> logCustomEvent(CustomAnalyticsEvent event) async {

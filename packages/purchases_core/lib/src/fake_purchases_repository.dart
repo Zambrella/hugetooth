@@ -10,7 +10,6 @@ class FakePurchasesRepository implements PurchasesRepository {
   bool _isDebugMode = true;
   bool _overrideIsSubscribed = false;
   // ignore: unused_field
-  bool _isAndroid = false;
   bool _isLoggedIn = false;
   String? _userId;
 
@@ -62,18 +61,14 @@ class FakePurchasesRepository implements PurchasesRepository {
   }
 
   @override
-  Future<void> initService({
+  Future<void> init({
     required bool isDebugMode,
-    required bool isAndroid,
-    String? userId,
     bool isSubscribed = false,
   }) async {
     log('Initialising service...');
     await Future<void>.delayed(const Duration(seconds: 1));
     _isInitialized = true;
     _isDebugMode = isDebugMode;
-    _isAndroid = isAndroid;
-    _userId = userId;
     if (_userId != null) {
       _isLoggedIn = true;
     }
@@ -87,7 +82,7 @@ class FakePurchasesRepository implements PurchasesRepository {
   }
 
   @override
-  Future<void> login(String userId) async {
+  Future<void> setUserId(String userId) async {
     log('Logging in...');
     await Future<void>.delayed(const Duration(seconds: 1));
     _userId = userId;
@@ -99,7 +94,7 @@ class FakePurchasesRepository implements PurchasesRepository {
   }
 
   @override
-  Future<void> logout() async {
+  Future<void> unsetUserId() async {
     log('Logging out...');
     await Future<void>.delayed(const Duration(seconds: 1));
     _userId = null;

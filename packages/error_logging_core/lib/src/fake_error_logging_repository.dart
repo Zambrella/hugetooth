@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:error_logging_core/src/error_logging_repository.abs.dart';
 
 /// {@template fake_error_logging_repository}
@@ -17,7 +19,6 @@ class FakeErrorLoggingRepository implements ErrorLoggingRepository {
     Object? error,
     StackTrace? stackTrace,
   }) async {
-    // ignore: avoid_print, lines_longer_than_80_chars
     print('Logging exception: $message, error: $error, stackTrace: $stackTrace');
     _loggedExceptions.add(message);
   }
@@ -27,7 +28,6 @@ class FakeErrorLoggingRepository implements ErrorLoggingRepository {
     String message, {
     StackTrace? stackTrace,
   }) async {
-    // ignore: avoid_print
     print('Logging message: $message, stackTrace: $stackTrace');
     _loggedMessages.add(message);
   }
@@ -35,20 +35,29 @@ class FakeErrorLoggingRepository implements ErrorLoggingRepository {
   @override
   Future<void> enableLogging({required bool enable}) async {
     _loggingEnabled = enable;
-    // ignore: avoid_print
     print('Logging enabled: $_loggingEnabled');
   }
 
   @override
   Future<void> setUserId(String userId) async {
     _userId = userId;
-    // ignore: avoid_print
     print('Setting user ID: $_userId');
   }
 
   /// Dumps the logs and user ID to a string.
   String dumpLogs() {
-    // ignore: lines_longer_than_80_chars
     return 'Logged messages: $_loggedMessages\nLogged exceptions: $_loggedExceptions\nUser ID: $_userId\nLogging enabled: $_loggingEnabled';
+  }
+
+  @override
+  Future<void> init() async {
+    print('Initializing error logging service');
+    return;
+  }
+
+  @override
+  Future<void> unsetUserId() async {
+    _userId = null;
+    print('Unsetting user ID: $_userId');
   }
 }

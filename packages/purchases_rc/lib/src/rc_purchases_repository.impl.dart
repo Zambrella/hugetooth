@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 
 /// {@template rc_purchases_repository}
 /// Revenue Cat implementation of [PurchasesRepository].
-/// Must be initialised first with [initService] before any other methods can be
+/// Must be initialised first with [init] before any other methods can be
 /// called.
 /// Internally is handles it's own stream controller to listen for any changes.
 /// {@endtemplate}
@@ -40,10 +40,9 @@ class RcPurchasesRepository implements PurchasesRepository {
   }
 
   @override
-  Future<void> initService({
+  Future<void> init({
     required bool isDebugMode,
-    required bool isAndroid,
-    String? userId,
+    bool isAndroid = true,
     String? androidApiKey,
     String? iosApiKey,
   }) async {
@@ -74,12 +73,6 @@ class RcPurchasesRepository implements PurchasesRepository {
 
     // Set up listener for any purchase changes
     Purchases.addCustomerInfoUpdateListener(_purchaserListener);
-
-    // Log the user into revenuecat. May not have a user at this point so
-    // checking if userId is null
-    if (userId != null) {
-      await Purchases.logIn(userId);
-    }
   }
 
   @override
@@ -212,15 +205,13 @@ class RcPurchasesRepository implements PurchasesRepository {
   }
 
   @override
-  Future<void> login(String userId) async {
+  Future<void> setUserId(String userId) async {
     await Purchases.logIn(userId);
-    Purchases.addCustomerInfoUpdateListener(_purchaserListener);
   }
 
   @override
-  Future<void> logout() async {
+  Future<void> unsetUserId() async {
     await Purchases.logOut();
-    Purchases.removeCustomerInfoUpdateListener(_purchaserListener);
   }
 }
 

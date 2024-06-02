@@ -12,7 +12,7 @@ class AppLogFilter extends LogFilter {
 
   @override
   bool shouldLog(LogEvent event) {
-    // Log all errors and warnings in dev and staging
+    // Log everything in dev and staging
     if (_flavor == Flavor.dev || _flavor == Flavor.staging) {
       return true;
       // Log only errors in production
@@ -31,6 +31,7 @@ class AppLogOutput extends LogOutput {
 
   @override
   void output(OutputEvent event) {
+    // Log exceptions to the error logging repository
     if (event.level.value >= Level.error.value) {
       unawaited(
         _loggingRepository
@@ -44,8 +45,11 @@ class AppLogOutput extends LogOutput {
         }),
       );
     }
-    for (final line in event.lines) {
-      debugPrint(line);
+    // Print all logs to the console if in debug mode
+    if (kDebugMode) {
+      for (final line in event.lines) {
+        debugPrint(line);
+      }
     }
   }
 }

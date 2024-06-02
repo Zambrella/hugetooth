@@ -10,11 +10,7 @@ abstract class PurchasesRepository {
 
   /// Initializes the service.
   /// Likely to be called at the start of the app.
-  Future<void> initService({
-    required bool isDebugMode,
-    required bool isAndroid,
-    String? userId,
-  });
+  Future<void> init({required bool isDebugMode});
 
   /// Fetches the available subscription packages.
   Future<List<SubscriptionPackage>> fetchSubscriptionPackages();
@@ -32,8 +28,8 @@ abstract class PurchasesRepository {
   Future<void> restorePurchase();
 
   /// Logs in the user.
-  Future<void> login(String userId);
+  Future<void> setUserId(String userId);
 
   /// Logs out the user.
-  Future<void> logout();
+  Future<void> unsetUserId();
 }

@@ -6,7 +6,7 @@ part of 'bootstrap.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appStartupHash() => r'c648dfadd0bfef006f5fa88eb2bb73e95dc55764';
+String _$appStartupHash() => r'1ab8e3032111ed0e7931a9236d9b3a1dc19e46e2';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -6,4 +6,3 @@ export 'src/auth_exceptions.dart';
 export 'src/auth_method.dart';
 export 'src/auth_repository.abs.dart';
 export 'src/auth_social.dart';
-export 'src/fake_auth_repository.dart';

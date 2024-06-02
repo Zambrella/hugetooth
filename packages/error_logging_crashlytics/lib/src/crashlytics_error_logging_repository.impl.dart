@@ -36,4 +36,14 @@ class CrashlyticsErrorLoggingRepository implements ErrorLoggingRepository {
   Future<void> setUserId(String userId) async {
     return _crashlytics.setUserIdentifier(userId);
   }
+
+  @override
+  Future<void> init() async {
+    return;
+  }
+
+  @override
+  Future<void> unsetUserId() async {
+    return;
+  }
 }

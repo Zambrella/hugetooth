@@ -12,30 +12,9 @@ class FirebaseAnalyticsRepository implements AnalyticsRepository {
   final FirebaseAnalytics _analytics;
 
   @override
-  Future<void> enableAnalytics({required bool enable}) {
+  Future<void> init({ServerLocation? serverLocation}) async {
     try {
-      return _analytics.setAnalyticsCollectionEnabled(enable);
-    } catch (e) {
-      throw Exception('Failed to enable analytics: $e');
-    }
-  }
-
-  @override
-  Future<void> init({
-    String? userId,
-    ServerLocation? serverLocation,
-    bool? enabled,
-  }) async {
-    try {
-      if (userId != null) {
-        await setUserId(userId);
-      }
-      if (serverLocation != null) {
-        await setServerLocation(serverLocation);
-      }
-      if (enabled != null) {
-        await enableAnalytics(enable: enabled);
-      }
+      // Do nothing
     } catch (e) {
       throw Exception('Failed to initialize analytics: $e');
     }
@@ -45,6 +24,18 @@ class FirebaseAnalyticsRepository implements AnalyticsRepository {
   Future<bool> isEnabled() {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> enableAnalytics({required bool enable}) {
+    try {
+      return _analytics.setAnalyticsCollectionEnabled(enable);
+    } catch (e) {
+      throw Exception('Failed to enable analytics: $e');
+    }
+  }
+
+  @override
+  Future<void> disableAnalytics() => enableAnalytics(enable: false);
 
   @override
   Future<void> logCustomEvent(CustomAnalyticsEvent event) async {
@@ -100,7 +91,8 @@ class FirebaseAnalyticsRepository implements AnalyticsRepository {
   @override
   Future<void> unsetUserId() async {
     try {
-      return _analytics.resetAnalyticsData();
+      // ignore: avoid_redundant_argument_values
+      return _analytics.setUserId(id: null);
     } catch (e) {
       throw Exception('Failed to unset user ID: $e');
     }
