@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:data_privacy/data_privacy.dart';
 
@@ -42,7 +44,7 @@ class MyHomePage extends StatelessWidget {
                 continueButtonText: 'Continue',
               ),
             );
-            debugPrint(result.toString());
+            log(result.toString());
           },
           child: const Text('Show Consent Explainer'),
         ),
