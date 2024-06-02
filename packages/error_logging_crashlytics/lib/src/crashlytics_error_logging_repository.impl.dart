@@ -20,8 +20,9 @@ class CrashlyticsErrorLoggingRepository implements ErrorLoggingRepository {
     String message, {
     Object? error,
     StackTrace? stackTrace,
+    bool? isFatal,
   }) async {
-    return _crashlytics.recordError(error, stackTrace, reason: message);
+    return _crashlytics.recordError(error, stackTrace, reason: message, fatal: isFatal ?? false);
   }
 
   @override

@@ -39,6 +39,7 @@ class AppLogOutput extends LogOutput {
           event.origin.message.toString(),
           error: event.origin.error,
           stackTrace: event.origin.stackTrace,
+          isFatal: event.level.value >= Level.fatal.value,
         )
             .catchError((_) {
           debugPrint('Failed to log exception');

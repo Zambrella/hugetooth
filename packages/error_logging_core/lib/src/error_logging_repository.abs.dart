@@ -9,6 +9,7 @@ abstract class ErrorLoggingRepository {
     String message, {
     Object? error,
     StackTrace? stackTrace,
+    bool? isFatal,
   });
 
   /// Logs a message with an optional stack trace.

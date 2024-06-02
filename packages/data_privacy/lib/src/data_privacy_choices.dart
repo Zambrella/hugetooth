@@ -65,6 +65,18 @@ class DataPrivacySettings {
   /// The device's advertising ID.
   final String? deviceAdId;
 
+  /// Gets the value of the [PrivacyOption.ads] choice;
+  bool get ads => choices[PrivacyOption.ads] ?? false;
+
+  /// Gets the value of the [PrivacyOption.analytics] choice;
+  bool get analytics => choices[PrivacyOption.analytics] ?? false;
+
+  /// Gets the value of the [PrivacyOption.crashes] choice;
+  bool get crashes => choices[PrivacyOption.crashes] ?? false;
+
+  /// Gets the value of the [PrivacyOption.basic] choice;
+  bool get basic => choices[PrivacyOption.basic] ?? false;
+
   @override
   String toString() {
     return 'DataPrivacySettings{choices: $choices, deviceAdId: $deviceAdId}';

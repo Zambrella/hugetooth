@@ -1,6 +1,8 @@
+import 'package:data_privacy/data_privacy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/authentication/presentation/controllers/logout_controller.dart';
+import 'package:flutter_starter_template/repository_providers.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -20,11 +22,35 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await ref.read(logoutControllerProvider.notifier).logout();
-          },
-          child: const Text('Logout'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                await ref.read(logoutControllerProvider.notifier).logout();
+              },
+              child: const Text('Logout'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final settings = await showConsentExplainer(
+                  context,
+                  ConsentExplainerConfig(
+                    privacyPolicyUrl: Uri.parse('https://google.com'),
+                    title: 'Your Privacy Matters',
+                    content: const Text('Please accept it helps us both'),
+                    acceptButtonText: 'Agree',
+                    declineButtonText: 'Decline',
+                    continueButtonText: 'Continue',
+                  ),
+                );
+                if (settings != null) {
+                  await ref.read(dataPrivacyRepositoryProvider).savePrivacySettings(settings);
+                }
+              },
+              child: const Text('Enable tracking'),
+            ),
+          ],
         ),
       ),
     );

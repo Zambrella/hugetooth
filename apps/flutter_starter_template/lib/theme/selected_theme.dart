@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_template/logging/providers/logger_provider.dart';
-import 'package:flutter_starter_template/repository_providers.dart';
+import 'package:flutter_starter_template/app_dependencies.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'selected_theme.g.dart';
 
@@ -43,13 +43,13 @@ class SelectedTheme extends _$SelectedTheme {
 
   // Private method to save the theme mode to shared preferences.
   Future<void> _saveThemeMode(ThemeMode themeMode) async {
-    final sharedPreferences = await ref.read(sharedPreferencesProvider.future);
+    final sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setInt(kThemeKey, themeMode.index);
   }
 
   // Private method to load the theme mode from shared preferences.
   Future<ThemeMode> _loadThemeMode() async {
-    final sharedPreferences = await ref.read(sharedPreferencesProvider.future);
+    final sharedPreferences = await SharedPreferences.getInstance();
     final savedModeValue = sharedPreferences.getInt(kThemeKey);
     if (savedModeValue == null) {
       return ThemeMode.system;

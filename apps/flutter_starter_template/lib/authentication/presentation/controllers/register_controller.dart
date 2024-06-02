@@ -1,5 +1,4 @@
 import 'package:analytics_core/analytics_core.dart';
-import 'package:flutter_starter_template/logging/providers/logger_provider.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,11 +14,11 @@ class RegisterController extends _$RegisterController {
   Future<void> register() async {
     state = const AsyncLoading();
     try {
-      final _ = await ref.watch(authRepositoryProvider).signUp(
+      final _ = await ref.read(authRepositoryProvider).signUp(
             email: '1234@test.com',
             password: '123456',
           );
-      await ref.watch(analyticsRepositoryProvider).logCustomEvent(
+      await ref.read(analyticsRepositoryProvider).logCustomEvent(
             RegisterCustomEvent(email: '1234@test.com'),
           );
       state = const AsyncData(null);

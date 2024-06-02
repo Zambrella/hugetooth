@@ -14,20 +14,23 @@ class FakeAnalyticsRepository implements AnalyticsRepository {
   ServerLocation? _serverLocation;
   bool? _enabled;
   final Map<String, dynamic> _userProperties = {};
-  final Map<String, dynamic> _events = {};
+  final List<Map<String, dynamic>> _events = [];
 
   @override
   Future<void> init({ServerLocation? serverLocation}) async {
+    log('Initializing fake analytics repository', name: 'FakeAnalyticsRepository');
     _serverLocation = serverLocation;
   }
 
   @override
   Future<bool> isEnabled() async {
+    log('Checking if analytics is enabled: $_enabled', name: 'FakeAnalyticsRepository');
     return Future.value(_enabled ?? false);
   }
 
   @override
   Future<void> enableAnalytics({required bool enable}) async {
+    log('Setting enabled status to: $enable', name: 'FakeAnalyticsRepository');
     _enabled = enable;
   }
 
@@ -36,27 +39,32 @@ class FakeAnalyticsRepository implements AnalyticsRepository {
 
   @override
   Future<void> logCustomEvent(CustomAnalyticsEvent event) async {
-    _events[event.eventName] = event.parameters;
-    log(dump());
+    _events.add({event.eventName: event.parameters});
+    log(dump(), name: 'FakeAnalyticsRepository');
   }
 
   @override
   Future<void> setServerLocation(ServerLocation location) async {
+    log('Setting server location', name: 'FakeAnalyticsRepository');
     _serverLocation = location;
   }
 
   @override
   Future<void> setUserId(String userId) async {
+    log('Setting user id', name: 'FakeAnalyticsRepository');
     _userId = userId;
   }
 
   @override
   Future<void> setUserProperty(UserProperty userProperty) async {
+    log('Setting user property', name: 'FakeAnalyticsRepository');
     _userProperties[userProperty.name] = userProperty.value;
+    log(dump(), name: 'FakeAnalyticsRepository');
   }
 
   @override
   Future<void> unsetUserId() async {
+    log('Unsetting user id', name: 'FakeAnalyticsRepository');
     _userId = null;
     _userProperties.clear();
     _events.clear();

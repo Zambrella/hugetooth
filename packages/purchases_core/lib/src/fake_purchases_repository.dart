@@ -46,7 +46,7 @@ class FakePurchasesRepository implements PurchasesRepository {
 
   @override
   Future<List<SubscriptionPackage>> fetchSubscriptionPackages() async {
-    log('Fetching subscription packages...');
+    log('Fetching subscription packages...', name: 'FakePurchasesRepository');
     await Future<void>.delayed(const Duration(seconds: 1));
     return Future.value(fakePackages);
   }
@@ -65,7 +65,7 @@ class FakePurchasesRepository implements PurchasesRepository {
     required bool isDebugMode,
     bool isSubscribed = false,
   }) async {
-    log('Initialising service...');
+    log('Initialising service...', name: 'FakePurchasesRepository');
     await Future<void>.delayed(const Duration(seconds: 1));
     _isInitialized = true;
     _isDebugMode = isDebugMode;
@@ -83,7 +83,7 @@ class FakePurchasesRepository implements PurchasesRepository {
 
   @override
   Future<void> setUserId(String userId) async {
-    log('Logging in...');
+    log('Logging in...', name: 'FakePurchasesRepository');
     await Future<void>.delayed(const Duration(seconds: 1));
     _userId = userId;
     _isLoggedIn = true;
@@ -95,7 +95,7 @@ class FakePurchasesRepository implements PurchasesRepository {
 
   @override
   Future<void> unsetUserId() async {
-    log('Logging out...');
+    log('Logging out...', name: 'FakePurchasesRepository');
     await Future<void>.delayed(const Duration(seconds: 1));
     _userId = null;
     _isLoggedIn = false;
@@ -103,20 +103,20 @@ class FakePurchasesRepository implements PurchasesRepository {
 
   @override
   Future<void> purchaseSubscription(SubscriptionPackage package) async {
-    log('Purchasing subscription...');
+    log('Purchasing subscription...', name: 'FakePurchasesRepository');
     await Future<void>.delayed(const Duration(seconds: 2));
     _controller.add(_fakeUserSubscription);
   }
 
   @override
   Future<void> refresh() async {
-    log('Refreshing...');
+    log('Refreshing...', name: 'FakePurchasesRepository');
     await Future<void>.delayed(const Duration(seconds: 3));
   }
 
   @override
   Future<void> restorePurchase() async {
-    log('Refreshing subscription...');
+    log('Refreshing subscription...', name: 'FakePurchasesRepository');
     await Future<void>.delayed(const Duration(seconds: 2));
   }
 }

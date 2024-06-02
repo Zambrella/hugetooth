@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:developer';
+
 import 'package:error_logging_core/src/error_logging_repository.abs.dart';
 
 /// {@template fake_error_logging_repository}
@@ -18,8 +20,14 @@ class FakeErrorLoggingRepository implements ErrorLoggingRepository {
     String message, {
     Object? error,
     StackTrace? stackTrace,
+    bool? isFatal,
   }) async {
-    print('Logging exception: $message, error: $error, stackTrace: $stackTrace');
+    log(
+      'Logging exception: $message',
+      error: error,
+      stackTrace: stackTrace,
+      name: 'FakeErrorLoggingRepository',
+    );
     _loggedExceptions.add(message);
   }
 
@@ -28,20 +36,24 @@ class FakeErrorLoggingRepository implements ErrorLoggingRepository {
     String message, {
     StackTrace? stackTrace,
   }) async {
-    print('Logging message: $message, stackTrace: $stackTrace');
+    log(
+      'Logging message: $message',
+      stackTrace: stackTrace,
+      name: 'FakeErrorLoggingRepository',
+    );
     _loggedMessages.add(message);
   }
 
   @override
   Future<void> enableLogging({required bool enable}) async {
     _loggingEnabled = enable;
-    print('Logging enabled: $_loggingEnabled');
+    log('Logging enabled: $_loggingEnabled', name: 'FakeErrorLoggingRepository');
   }
 
   @override
   Future<void> setUserId(String userId) async {
     _userId = userId;
-    print('Setting user ID: $_userId');
+    log('Setting user ID: $_userId', name: 'FakeErrorLoggingRepository');
   }
 
   /// Dumps the logs and user ID to a string.
@@ -51,13 +63,13 @@ class FakeErrorLoggingRepository implements ErrorLoggingRepository {
 
   @override
   Future<void> init() async {
-    print('Initializing error logging service');
+    log('Initializing error logging service', name: 'FakeErrorLoggingRepository');
     return;
   }
 
   @override
   Future<void> unsetUserId() async {
     _userId = null;
-    print('Unsetting user ID: $_userId');
+    log('Unsetting user ID: $_userId', name: 'FakeErrorLoggingRepository');
   }
 }

@@ -1,6 +1,7 @@
 import 'package:analytics_core/analytics_core.dart';
 import 'package:auth_core/auth_core.dart';
-import 'package:error_logging_core/error_logging_core.dart';
+import 'package:data_privacy/data_privacy.dart';
+import 'package:flutter_starter_template/app_dependencies.dart';
 import 'package:flutter_starter_template/authentication/repository/fake_auth_repository.dart';
 import 'package:purchases_core/purchases_core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,15 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'repository_providers.g.dart';
 
 @Riverpod(keepAlive: true)
-FutureOr<SharedPreferences> sharedPreferences(
-  SharedPreferencesRef ref,
-) async {
-  return SharedPreferences.getInstance();
-}
-
-@Riverpod(keepAlive: true)
-ErrorLoggingRepository errorLoggingRepository(ErrorLoggingRepositoryRef ref) {
-  return FakeErrorLoggingRepository();
+SharedPreferences sharedPreferences(SharedPreferencesRef ref) {
+  // requiredValue is possible because `appDependenciesProvider` is loaded in `lib/app.dart`
+  return ref.watch(appDependenciesProvider.select((deps) => deps.requireValue.sharedPreferences));
 }
 
 @Riverpod(keepAlive: true)
@@ -33,4 +28,9 @@ AnalyticsRepository analyticsRepository(AnalyticsRepositoryRef ref) {
 @Riverpod(keepAlive: true)
 PurchasesRepository purchasesRepository(PurchasesRepositoryRef ref) {
   return FakePurchasesRepository();
+}
+
+@Riverpod(keepAlive: true)
+DataPrivacyRepository dataPrivacyRepository(DataPrivacyRepositoryRef ref) {
+  return DataPrivacyRepository(ref.watch(sharedPreferencesProvider));
 }

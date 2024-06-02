@@ -6,11 +6,11 @@ part of 'repository_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedPreferencesHash() => r'56befc3dba41be48eaceb296c335ac3eb3cb90ac';
+String _$sharedPreferencesHash() => r'17c969d773da672bf51c390b052143c6e7569cde';
 
 /// See also [sharedPreferences].
 @ProviderFor(sharedPreferences)
-final sharedPreferencesProvider = FutureProvider<SharedPreferences>.internal(
+final sharedPreferencesProvider = Provider<SharedPreferences>.internal(
   sharedPreferences,
   name: r'sharedPreferencesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -20,24 +20,7 @@ final sharedPreferencesProvider = FutureProvider<SharedPreferences>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef SharedPreferencesRef = FutureProviderRef<SharedPreferences>;
-String _$errorLoggingRepositoryHash() =>
-    r'19bbafb68f50e185ddc7284549c9953cd5875140';
-
-/// See also [errorLoggingRepository].
-@ProviderFor(errorLoggingRepository)
-final errorLoggingRepositoryProvider =
-    Provider<ErrorLoggingRepository>.internal(
-  errorLoggingRepository,
-  name: r'errorLoggingRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$errorLoggingRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef ErrorLoggingRepositoryRef = ProviderRef<ErrorLoggingRepository>;
+typedef SharedPreferencesRef = ProviderRef<SharedPreferences>;
 String _$authRepositoryHash() => r'0f0aea8947c951d7946110cb9f6ecaa1ea21237b';
 
 /// See also [authRepository].
@@ -85,5 +68,21 @@ final purchasesRepositoryProvider = Provider<PurchasesRepository>.internal(
 );
 
 typedef PurchasesRepositoryRef = ProviderRef<PurchasesRepository>;
+String _$dataPrivacyRepositoryHash() =>
+    r'1b0189c94389cff9f99fc7d0ad0f69bf5dbfbee1';
+
+/// See also [dataPrivacyRepository].
+@ProviderFor(dataPrivacyRepository)
+final dataPrivacyRepositoryProvider = Provider<DataPrivacyRepository>.internal(
+  dataPrivacyRepository,
+  name: r'dataPrivacyRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$dataPrivacyRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef DataPrivacyRepositoryRef = ProviderRef<DataPrivacyRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
