@@ -8,6 +8,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:error_logging_core/error_logging_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
+import 'package:flutter_starter_template/authentication/providers/login_provider.dart';
 import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -89,6 +90,14 @@ FutureOr<void> serviceInitialisation(ServiceInitialisationRef ref) async {
       await ref.read(analyticsRepositoryProvider).enableAnalytics(enable: false);
       await ref.read(errorLoggingRepositoryProvider).enableLogging(enable: false);
     }
+  }
+
+  // Login the user to services if they are already logged in to app.
+  final userId = ref.read(currentUserProvider)?.id;
+  if (userId != null) {
+    //? May want to catch the error and continue with the initialization logic.
+    //? Are the services critical to the app's functionality?
+    await ref.read(loginProvider.future);
   }
 
   logger.i('Service initialization successful.');

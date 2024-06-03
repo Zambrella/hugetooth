@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:analytics_core/analytics_core.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -18,6 +20,7 @@ class RegisterController extends _$RegisterController {
             email: '1234@test.com',
             password: '123456',
           );
+      // At this point, the app will have navigated to the login page.
       await ref.read(analyticsRepositoryProvider).logCustomEvent(
             RegisterCustomEvent(email: '1234@test.com'),
           );
