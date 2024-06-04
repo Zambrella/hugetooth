@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/app_dependencies.dart';
+import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
+import 'package:flutter_starter_template/authentication/providers/login_provider.dart';
 import 'package:flutter_starter_template/routing/app_router.dart';
 import 'package:flutter_starter_template/theme/dark_theme.dart';
 import 'package:flutter_starter_template/theme/light_theme.dart';
@@ -22,14 +24,22 @@ class _AppState extends ConsumerState<App> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AsyncValue<void>>(
-      serviceInitialisationProvider,
-      (_, state) {
-        if (state.hasValue || state.hasError) {
-          FlutterNativeSplash.remove();
+    ref
+      ..listen<AsyncValue<void>>(
+        serviceInitialisationProvider,
+        (_, state) {
+          if (state.hasValue || state.hasError) {
+            FlutterNativeSplash.remove();
+          }
+        },
+      )
+      ..listen(authStateChangesProvider, (prev, state) async {
+        if (state.hasValue && state.asData?.value != null) {
+          print('User logged in');
+          final userId = state.asData!.value!.id;
+          await ref.read(loginProvider(userId).future);
         }
-      },
-    );
+      });
 
     final initDependencies = ref.watch(serviceInitialisationProvider);
     final goRouter = ref.watch(goRouterProvider);

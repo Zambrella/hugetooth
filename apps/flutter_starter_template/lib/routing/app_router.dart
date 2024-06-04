@@ -83,3 +83,13 @@ GoRouter goRouter(GoRouterRef ref) {
     ),
   );
 }
+
+extension GoRouterExtension on GoRouter {
+  // Clear the stack and navigate to a new location
+  void clearStackAndNavigate(String location) {
+    while (canPop()) {
+      pop();
+    }
+    pushReplacement(location);
+  }
+}

@@ -8,7 +8,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:error_logging_core/error_logging_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
-import 'package:flutter_starter_template/authentication/providers/login_provider.dart';
 import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -68,12 +67,7 @@ FutureOr<void> serviceInitialisation(ServiceInitialisationRef ref) async {
 
   // Waiting for the intial auth event to complete to prevent potential of going from loading -> unauthenticated -> authenticated
   // when the user is already authenticated, it's just that the auth state hasn't been emitted yet.
-  // If it takes too long, we'll continue with the initialization logic.
-  try {
-    await ref.read(authStateChangesProvider.future).timeout(const Duration(seconds: 5));
-  } on TimeoutException {
-    logger.w('Auth state changes took too long to complete. Continuing with initialization logic.');
-  }
+  final _ = await ref.read(authStateChangesProvider.future);
 
   // Initialize services
   await ref.read(errorLoggingRepositoryProvider).init();
@@ -93,12 +87,12 @@ FutureOr<void> serviceInitialisation(ServiceInitialisationRef ref) async {
   }
 
   // Login the user to services if they are already logged in to app.
-  final userId = ref.read(currentUserProvider)?.id;
-  if (userId != null) {
-    //? May want to catch the error and continue with the initialization logic.
-    //? Are the services critical to the app's functionality?
-    await ref.read(loginProvider.future);
-  }
+  // final userId = ref.read(currentUserProvider)?.id;
+  // if (userId != null) {
+  //   //? May want to catch the error and continue with the initialization logic.
+  //   //? Are the services critical to the app's functionality?
+  //   await ref.read(loginProvider.future);
+  // }
 
   logger.i('Service initialization successful.');
 }

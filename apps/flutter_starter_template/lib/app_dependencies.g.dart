@@ -22,7 +22,7 @@ final appDependenciesProvider = FutureProvider<AppDependencies>.internal(
 
 typedef AppDependenciesRef = FutureProviderRef<AppDependencies>;
 String _$serviceInitialisationHash() =>
-    r'f4ebe619e10f9bbd9c4245aab61eda5e3c241adb';
+    r'3f1b2047ebeb82fb9e437935949f436ad3203f2b';
 
 /// See also [serviceInitialisation].
 @ProviderFor(serviceInitialisation)

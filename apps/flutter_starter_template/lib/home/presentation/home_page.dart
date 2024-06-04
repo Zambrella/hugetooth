@@ -1,9 +1,7 @@
 import 'package:data_privacy/data_privacy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_starter_template/app_dependencies.dart';
 import 'package:flutter_starter_template/authentication/presentation/controllers/logout_controller.dart';
-import 'package:flutter_starter_template/authentication/providers/login_provider.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -17,36 +15,20 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final loginProviderState = ref.read(loginProvider);
-      if (!loginProviderState.hasValue) {
-        ref.read(loginProvider.future).ignore();
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    ref
-      ..listen(logoutControllerProvider, (prev, next) {
-        if (next is AsyncData) {
-          print('User logged out');
-          // context.goNamed(AppRoute.login.name);
-        }
+    ref.listen(logoutControllerProvider, (prev, next) {
+      if (next is AsyncData) {
+        print('User logged out');
+        // context.goNamed(AppRoute.login.name);
+      }
 
-        if (next is AsyncLoading) {
-          print('Loading...');
-        }
-      })
-      ..listen(loginProvider, (prev, next) {
-        if (next.hasError) {
-          ref.read(errorLoggingRepositoryProvider).logException(
-                'Error initializing login services',
-                error: next.error,
-                stackTrace: next.stackTrace,
-              );
-        }
-      });
+      if (next is AsyncLoading) {
+        print('Loading...');
+      }
+    });
 
     return Scaffold(
       body: Center(

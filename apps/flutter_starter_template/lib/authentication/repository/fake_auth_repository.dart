@@ -18,8 +18,7 @@ class FakeAuthRepository implements AuthRepository {
   Future<void> getSavedUser() async {
     final preferences = await SharedPreferences.getInstance();
     final isLoggedIn = preferences.getBool(_kUserKey);
-    // ignore: use_if_null_to_convert_nulls_to_bools
-    if (isLoggedIn == true) {
+    if (isLoggedIn ?? false) {
       const user = AppUser(
         email: 'Fake@email.com',
         authMethod: AuthMethod.email,
