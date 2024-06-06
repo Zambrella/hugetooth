@@ -17,6 +17,7 @@ enum AppRoute {
   login,
   register,
   home,
+  details,
 }
 
 @Riverpod(keepAlive: true)
@@ -76,6 +77,21 @@ GoRouter goRouter(GoRouterRef ref) {
         pageBuilder: (context, state) => const NoTransitionPage(
           child: HomePage(),
         ),
+        routes: [
+          GoRoute(
+            path: 'details',
+            name: AppRoute.details.name,
+            pageBuilder: (context, state) {
+              return const NoTransitionPage(
+                child: Scaffold(
+                  body: Center(
+                    child: Text('Details Page'),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     ],
     errorPageBuilder: (context, state) => const NoTransitionPage(

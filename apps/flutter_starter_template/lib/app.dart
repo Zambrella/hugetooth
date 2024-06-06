@@ -35,7 +35,6 @@ class _AppState extends ConsumerState<App> {
       )
       ..listen(authStateChangesProvider, (prev, state) async {
         if (state.hasValue && state.asData?.value != null) {
-          print('User logged in');
           final userId = state.asData!.value!.id;
           await ref.read(loginProvider(userId).future);
         }

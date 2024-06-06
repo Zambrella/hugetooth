@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/authentication/presentation/controllers/logout_controller.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
+import 'package:flutter_starter_template/routing/app_router.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -59,6 +61,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                 }
               },
               child: const Text('Enable tracking'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.goNamed(AppRoute.details.name);
+              },
+              child: const Text('Details Page'),
             ),
           ],
         ),
