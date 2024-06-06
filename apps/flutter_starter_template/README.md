@@ -9,14 +9,39 @@ Just follow [this](https://codewithandrea.com/articles/flutter-deep-links/) awes
 ---
 
 ## App Icon
+TODO: Update this documentation with learnings and any pitfalls.
+
+Use [this](https://pub.dev/packages/flutter_launcher_icons) package (which supports flavors).
+
+Other options:
+- https://pub.dev/packages/icons_launcher
 
 ---
 
 ## Splash Screen
+TODO: Update this documentation with learnings and any pitfalls.
+
+Use [this](https://pub.dev/packages/flutter_native_splash) package (which supports flavors)
+
+---
+
+## Environment variables
+It is expected that there are 3 `.env` files:
+- `.development.env`
+- `.staging.env`
+- `.production.env`
+
+These are not checked into source control.
+
+Use [this](https://pub.dev/packages/flutter_dotenv) package to load the environments.
 
 ---
 
 ## Theming
+
+---
+
+## CI/CD
 
 ---
 

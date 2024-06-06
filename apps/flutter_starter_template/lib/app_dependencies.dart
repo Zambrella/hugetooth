@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:error_logging_core/error_logging_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
 import 'package:flutter_starter_template/flavors.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
@@ -37,6 +38,7 @@ class AppDependencies with _$AppDependencies {
 Future<AppDependencies> appDependencies(
   AppDependenciesRef ref,
 ) async {
+  final flavor = ref.read(flavorProvider);
   final logger = ref.read(loggerProvider);
   // ignore: cascade_invocations
   logger.i('App dependency initialization starting.');
@@ -46,6 +48,13 @@ Future<AppDependencies> appDependencies(
   final deviceInfo = await DeviceInfoPlugin().deviceInfo;
   final prefs = await SharedPreferences.getInstance();
   final appVersion = Version.parse(pInfo.version);
+  await dotenv.load(
+    fileName: switch (flavor) {
+      Flavor.dev => 'env/.development.env',
+      Flavor.staging => 'env/.staging.env',
+      Flavor.prod => 'env/.production.env',
+    },
+  );
   // Other examples: database connection, sound pool, vibration service, session storage.
 
   logger.i('Dependency initialization successful.');

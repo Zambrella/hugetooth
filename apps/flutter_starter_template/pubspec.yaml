@@ -26,6 +26,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_displaymode: ^0.6.0
+  flutter_dotenv: ^5.1.0
   flutter_gen: any
   flutter_localizations:
     sdk: flutter
@@ -60,3 +61,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - env/
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
