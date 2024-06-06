@@ -1,31 +1,45 @@
 # Flutter Starter Template
 
 ![coverage][coverage_badge]
+This template is meant as a good starting point for any app. It includes:
+- routing
+- initialization
+- authentication
+- logging
+- exception reporting
+- analytics
+- purchases
+- flavors
+- tests
+
+It makes use of other packages defined in this mono-repo.
 
 
-## Deep Links
-Just follow [this](https://codewithandrea.com/articles/flutter-deep-links/) awesome guide.
+## Deep Links 🔗
+Just follow [this](https://codewithandrea.com/articles/flutter-deep-links/) awesome guide. 
+
+Template app has been tested and works with deep links.
 
 ---
 
-## App Icon
+## App Icon 📱
 TODO: Update this documentation with learnings and any pitfalls.
 
-Use [this](https://pub.dev/packages/flutter_launcher_icons) package (which supports flavors).
+Use [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) package (which supports flavors).
 
 Other options:
 - https://pub.dev/packages/icons_launcher
 
 ---
 
-## Splash Screen
+## Splash Screen 💦
 TODO: Update this documentation with learnings and any pitfalls.
 
-Use [this](https://pub.dev/packages/flutter_native_splash) package (which supports flavors)
+Use [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) package (which supports flavors).
 
 ---
 
-## Environment variables
+## Environment variables 🌱
 It is expected that there are 3 `.env` files:
 - `.development.env`
 - `.staging.env`
@@ -33,23 +47,46 @@ It is expected that there are 3 `.env` files:
 
 These are not checked into source control.
 
-Use [this](https://pub.dev/packages/flutter_dotenv) package to load the environments.
+[flutter_dotenv](https://pub.dev/packages/flutter_dotenv) package is used to load the relevant file during initialization. Variables can be accessed like so:
+```dart
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+dotenv.env['VAR_NAME'];
+```
+
+Secrets and API keys should ideally **not** be stored in envrionment variables. Although better than coding them into a `String` they can still be accessed by someone with access to the compiled app. It is better to never give the client access to the keys and handle any code that requires the keys in a trusted environement (e.g. a server).
 
 ---
 
-## Theming
+## Theming 🌈
+Theming is all handled in the `lib/theme` directory.
+
+A common theme is defined in `common_theme.dart` which handles all theming that isn't related to colours.
+
+There is then `light_theme.dart` and `dark_theme.dart` which copies the `common_theme` and adds the relevant colours and brightness. The `MaterialApp` then uses these themes.
+
+NOTE: This might not be the best way to do it so it might change in the future
+
+### Extensions
+Theme extensions provide a robust mechanism to extend and customize the default theming capabilities. Currently implemented are:
+- `SpacingTheme` - Sizes that will mostly be used for padding and gap spacing. These could probably just be constants.
+- `DurationTheme` - Different durations that can be used by animations so the app uses consistent timings throughout.
+- `ModalTheme` - ???
+
+### Text scale factor clamper
+This widget wraps the entire app and prevents the font from getting too big or small when the user has adjusted the font size in the OS settings. Although it would be ideal to not have to do this, some apps just can't handle it if the font gets too large.
+
 
 ---
 
-## CI/CD
+## CI/CD 🚝
 
 ---
 
-## Exceptions 
+## Exceptions ⚠️
 
 ---
 
-## Flavors
+## Flavors 😋
 
 ```sh
 # Development
@@ -197,8 +234,9 @@ flutter gen-l10n --arb-dir="lib/l10n/arb"
 
 Alternatively, run `flutter run` and code generation will take place automatically.
 
+## Notes 📝
+
+
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
 [internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
-
-## Notes

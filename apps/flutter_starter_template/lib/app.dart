@@ -8,6 +8,7 @@ import 'package:flutter_starter_template/routing/app_router.dart';
 import 'package:flutter_starter_template/theme/dark_theme.dart';
 import 'package:flutter_starter_template/theme/light_theme.dart';
 import 'package:flutter_starter_template/theme/selected_theme.dart';
+import 'package:flutter_starter_template/theme/text_scale_factor_clamper.dart';
 
 class App extends ConsumerStatefulWidget {
   const App({super.key});
@@ -54,7 +55,9 @@ class _AppState extends ConsumerState<App> {
         // Wrap with InheritedWidgets here if needed. E.g. One that overrides the text scale factor
         return initDependencies.when(
           skipLoadingOnRefresh: false,
-          data: (_) => child!,
+          data: (_) => TextScaleFactorClamper(
+            child: child!,
+          ),
           // Loading screen is handled by the native splash screen on the first load.
           // If there's an error and the user refreshes, the loading screen will be shown.
           loading: () => const Scaffold(
