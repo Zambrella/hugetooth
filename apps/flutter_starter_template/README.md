@@ -125,6 +125,8 @@ $ open coverage/index.html
 
 ## Working with Translations 🌐
 
+I was having issues where the generated file would be in the `.dart-tool` directory so I followed [this SO answer](https://stackoverflow.com/a/78257261) and it worked.
+
 This project relies on [flutter_localizations][flutter_localizations_link] and follows the [official internationalization guide for Flutter][internationalization_link].
 
 ### Adding Strings

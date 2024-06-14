@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/app_dependencies.dart';
 import 'package:flutter_starter_template/authentication/providers/authentication_providers.dart';
 import 'package:flutter_starter_template/authentication/providers/login_provider.dart';
+import 'package:flutter_starter_template/l10n/gen_l10n/app_localizations.dart';
 import 'package:flutter_starter_template/routing/app_router.dart';
 import 'package:flutter_starter_template/theme/dark_theme.dart';
 import 'package:flutter_starter_template/theme/light_theme.dart';
@@ -51,6 +52,8 @@ class _AppState extends ConsumerState<App> {
             orElse: () => ThemeMode.system,
             data: (themeMode) => themeMode,
           ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       builder: (context, child) {
         // Wrap with InheritedWidgets here if needed. E.g. One that overrides the text scale factor
         return initDependencies.when(

@@ -1,0 +1,17 @@
+{
+    "@@locale": "en",
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+        "description": "The conventional newborn programmer greeting"
+    },
+    "wrongPassword": "Wrong password",
+    "invalidEmail": "Invalid email",
+    "userDisabled": "Your account has been disabled",
+    "userNotFound": "Account not found",
+    "emailInUse": "Email is already in use",
+    "weakPassword": "Password is too weak",
+    "invalidCredential": "Information provided is invalid",
+    "requiredReauthentication": "You need to reauthenticate",
+    "unknownAuthError": "An unknown error occurred",
+    "unknownError": "An unknown error occurred"
+}

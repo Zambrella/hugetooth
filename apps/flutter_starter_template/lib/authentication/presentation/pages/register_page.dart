@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/authentication/presentation/controllers/register_controller.dart';
 import 'package:flutter_starter_template/routing/app_router.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_starter_template/app_exception.dart';
 
 class RegisterPage extends ConsumerWidget {
   const RegisterPage({super.key});
@@ -17,6 +18,10 @@ class RegisterPage extends ConsumerWidget {
 
       if (next is AsyncLoading) {
         print('Loading...');
+      }
+
+      if (next is AsyncError) {
+        print('Error: ${next.errorMessage(context)}');
       }
     });
 
