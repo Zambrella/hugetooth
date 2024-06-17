@@ -1,49 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_starter_template/l10n/gen_l10n/app_localizations.dart';
 import 'package:purchases_core/purchases_core.dart';
 
-// TODO: Replace with localised strings
 /// Extension methods for the [SubscriptionLength] enum.
 extension SubscriptionLengthX on SubscriptionLength {
   /// Returns the name of the subscription length.
-  String subscriptionLengthName() {
+  String subscriptionLengthName(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     switch (this) {
       case SubscriptionLength.oneWeek:
-        return 'Weekly';
+        return loc.subscriptionLengthOneWeek;
       case SubscriptionLength.oneMonth:
-        return 'Monthly';
+        return loc.subscriptionLengthOneMonth;
       case SubscriptionLength.twoMonths:
-        return 'Bi-Monthly';
+        return loc.subscriptionLengthTwoMonths;
       case SubscriptionLength.threeMonths:
-        return 'Quarterly';
+        return loc.subscriptionLengthThreeMonths;
       case SubscriptionLength.sixMonths:
-        return 'Bi-Annual';
+        return loc.subscriptionLengthSixMonths;
       case SubscriptionLength.oneYear:
-        return 'Annual';
+        return loc.subscriptionLengthOneYear;
       case SubscriptionLength.lifetime:
-        return 'Lifetime';
+        return loc.subscriptionLengthLifetime;
       case SubscriptionLength.unknown:
-        return 'Unknown';
+        return loc.subscriptionLengthUnknown;
     }
   }
 
   /// Returns the length of the subscription that can be used as a suffix.
-  String subscriptionLengthPer() {
+  String subscriptionLengthPer(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     switch (this) {
       case SubscriptionLength.oneWeek:
-        return 'week';
+        return loc.subscriptionLengthPerOneWeek;
       case SubscriptionLength.oneMonth:
-        return 'month';
+        return loc.subscriptionLengthPerOneMonth;
       case SubscriptionLength.twoMonths:
-        return 'two months';
+        return loc.subscriptionLengthPerTwoMonths;
       case SubscriptionLength.threeMonths:
-        return 'three months';
+        return loc.subscriptionLengthPerThreeMonths;
       case SubscriptionLength.sixMonths:
-        return 'six months';
+        return loc.subscriptionLengthPerSixMonths;
       case SubscriptionLength.oneYear:
-        return 'year';
+        return loc.subscriptionLengthPerSixMonths;
       case SubscriptionLength.lifetime:
-        return 'lifetime';
+        return loc.subscriptionLengthPerLifetime;
       case SubscriptionLength.unknown:
-        return 'error';
+        return loc.subscriptionLengthPerUnknown;
     }
   }
 }

@@ -95,14 +95,6 @@ FutureOr<void> serviceInitialisation(ServiceInitialisationRef ref) async {
     }
   }
 
-  // Login the user to services if they are already logged in to app.
-  // final userId = ref.read(currentUserProvider)?.id;
-  // if (userId != null) {
-  //   //? May want to catch the error and continue with the initialization logic.
-  //   //? Are the services critical to the app's functionality?
-  //   await ref.read(loginProvider.future);
-  // }
-
   logger.i('Service initialization successful.');
 }
 

@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/authentication/presentation/controllers/logout_controller.dart';
 import 'package:flutter_starter_template/repository_providers.dart';
 import 'package:flutter_starter_template/routing/app_router.dart';
+import 'package:flutter_starter_template/theme/selected_theme.dart';
+import 'package:flutter_starter_template/theme/theme_extensions.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -67,6 +69,30 @@ class _HomePageState extends ConsumerState<HomePage> {
                 context.goNamed(AppRoute.details.name);
               },
               child: const Text('Details Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                ref.read(selectedThemeProvider.notifier).setThemeMode(
+                      ref.read(selectedThemeProvider).requireValue == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark,
+                    );
+              },
+              child: const Text('Switch theme'),
+            ),
+            Padding(
+              padding: EdgeInsets.all(context.theme.appSpacing.medium),
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'This is a text field',
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text('Text Button'),
+            ),
+            Switch(
+              value: true,
+              onChanged: (_) {},
             ),
           ],
         ),

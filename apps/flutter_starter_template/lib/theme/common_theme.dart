@@ -20,9 +20,7 @@ final textButtonTheme = TextButtonThemeData(
   style: TextButton.styleFrom(),
 );
 
-const dividerTheme = DividerThemeData(
-  color: primaryColor,
-);
+const dividerTheme = DividerThemeData();
 
 const textSelectionTheme = TextSelectionThemeData();
 
@@ -35,7 +33,6 @@ final commonTheme = ThemeData(
     ModalTheme(),
     DurationTheme(),
   ],
-  primaryColor: primaryColor, // Legacy property. Use ColorScheme instead.
   textTheme: textTheme,
   primaryTextTheme: textTheme,
   // fontFamily: 'Fondamento',

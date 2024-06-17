@@ -5,7 +5,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get helloWorld => 'Hello World!';
+  String get pageNotFound => '404 - Page not found';
 
   @override
   String get wrongPassword => 'Wrong password';
@@ -36,4 +36,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unknownError => 'An unknown error occurred';
+
+  @override
+  String get subscriptionLengthOneWeek => 'Weekly';
+
+  @override
+  String get subscriptionLengthOneMonth => 'Monthly';
+
+  @override
+  String get subscriptionLengthTwoMonths => 'Bi-Monthly';
+
+  @override
+  String get subscriptionLengthThreeMonths => 'Quarterly';
+
+  @override
+  String get subscriptionLengthSixMonths => 'Bi-Annual';
+
+  @override
+  String get subscriptionLengthOneYear => 'Annual';
+
+  @override
+  String get subscriptionLengthLifetime => 'Lifetime';
+
+  @override
+  String get subscriptionLengthUnknown => 'Unknown';
+
+  @override
+  String get subscriptionLengthPerOneWeek => 'week';
+
+  @override
+  String get subscriptionLengthPerOneMonth => 'month';
+
+  @override
+  String get subscriptionLengthPerTwoMonths => 'two months';
+
+  @override
+  String get subscriptionLengthPerThreeMonths => 'three months';
+
+  @override
+  String get subscriptionLengthPerSixMonths => 'six months';
+
+  @override
+  String get subscriptionLengthPerOneYear => 'year';
+
+  @override
+  String get subscriptionLengthPerLifetime => 'lifetime';
+
+  @override
+  String get subscriptionLengthPerUnknown => 'unknown';
 }

@@ -93,11 +93,11 @@ abstract class AppLocalizations {
     Locale('es')
   ];
 
-  /// The conventional newborn programmer greeting
+  /// No description provided for @pageNotFound.
   ///
   /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
+  /// **'404 - Page not found'**
+  String get pageNotFound;
 
   /// No description provided for @wrongPassword.
   ///
@@ -158,6 +158,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An unknown error occurred'**
   String get unknownError;
+
+  /// No description provided for @subscriptionLengthOneWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get subscriptionLengthOneWeek;
+
+  /// No description provided for @subscriptionLengthOneMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get subscriptionLengthOneMonth;
+
+  /// No description provided for @subscriptionLengthTwoMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-Monthly'**
+  String get subscriptionLengthTwoMonths;
+
+  /// No description provided for @subscriptionLengthThreeMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'Quarterly'**
+  String get subscriptionLengthThreeMonths;
+
+  /// No description provided for @subscriptionLengthSixMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-Annual'**
+  String get subscriptionLengthSixMonths;
+
+  /// No description provided for @subscriptionLengthOneYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual'**
+  String get subscriptionLengthOneYear;
+
+  /// No description provided for @subscriptionLengthLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get subscriptionLengthLifetime;
+
+  /// No description provided for @subscriptionLengthUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get subscriptionLengthUnknown;
+
+  /// No description provided for @subscriptionLengthPerOneWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'week'**
+  String get subscriptionLengthPerOneWeek;
+
+  /// No description provided for @subscriptionLengthPerOneMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'month'**
+  String get subscriptionLengthPerOneMonth;
+
+  /// No description provided for @subscriptionLengthPerTwoMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'two months'**
+  String get subscriptionLengthPerTwoMonths;
+
+  /// No description provided for @subscriptionLengthPerThreeMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'three months'**
+  String get subscriptionLengthPerThreeMonths;
+
+  /// No description provided for @subscriptionLengthPerSixMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'six months'**
+  String get subscriptionLengthPerSixMonths;
+
+  /// No description provided for @subscriptionLengthPerOneYear.
+  ///
+  /// In en, this message translates to:
+  /// **'year'**
+  String get subscriptionLengthPerOneYear;
+
+  /// No description provided for @subscriptionLengthPerLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'lifetime'**
+  String get subscriptionLengthPerLifetime;
+
+  /// No description provided for @subscriptionLengthPerUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown'**
+  String get subscriptionLengthPerUnknown;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

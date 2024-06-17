@@ -83,6 +83,10 @@ This widget wraps the entire app and prevents the font from getting too big or s
 ---
 
 ## Exceptions ⚠️
+There is an extension for `AsyncError` which will loop through all known `Exception` types and create a helpful error message for the user.
+When creating new exceptions, you should add a suitable error message to the relevant `.arb` files and add it as an option in `app_exceptions.dart`.
+
+There is also a helpful function that will take a plain `Exception` type and remove the `Exception: ` prefix and return it as a `String`.
 
 ---
 
