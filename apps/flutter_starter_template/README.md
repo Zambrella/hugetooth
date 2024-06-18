@@ -39,6 +39,56 @@ Use [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) pack
 
 ---
 
+## App Name 🔤
+### Flutter - `pubspec.yaml`
+```yaml
+name: new_app_name
+```
+
+### Android - `android/app/build.gradle`
+```gradle
+android {
+    namespace "com.dougtodd.flutter_starter_template" // <---- here
+
+    // ------ //
+
+    defaultConfig {
+        applicationId "com.dougtodd.flutter_starter_template" // <---- here
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    // ------ //
+
+    flavorDimensions "default"
+    productFlavors { 
+        production {
+            dimension "default"
+            applicationIdSuffix ""
+            manifestPlaceholders = [appName: "Flutter Starter Template"] // <---- here
+        }
+        staging {
+            dimension "default"
+            applicationIdSuffix ".stg"
+            manifestPlaceholders = [appName: "[STG] Flutter Starter Template"] // <---- here
+        }
+        development {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [appName: "[DEV] Flutter Starter Template"] // <---- here
+        }
+    }
+    // ------ //
+}
+```
+
+### iOS - `ios/Runner/Info.plist`
+Open up XCode -> Build Settings -> Search for variables used in `Info.plist` and update to desired values.
+
+---
+
 ## Environment variables 🌱
 It is expected that there are 3 `.env` files:
 - `.development.env`

@@ -1,0 +1,3 @@
+[submodule "apps/menyou"]
+	path = apps/menyou
+	url = https://github.com/Zambrella/menyou.git
