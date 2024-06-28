@@ -1,3 +1,6 @@
 [submodule "apps/menyou"]
 	path = apps/menyou
 	url = https://github.com/Zambrella/menyou.git
+[submodule "apps/challenge_assist"]
+	path = apps/challenge_assist
+	url = https://github.com/Zambrella/challenge-assist.git
