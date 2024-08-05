@@ -10,8 +10,8 @@ environment:
 dependencies:
   auth_core:
     path: ../auth_core
-  firebase_auth: ^4.19.6
-  firebase_core: ^2.31.1
+  firebase_auth: ^5.1.2
+  firebase_core: ^3.2.0
   flutter:
     sdk: flutter
   google_sign_in: ^6.2.1

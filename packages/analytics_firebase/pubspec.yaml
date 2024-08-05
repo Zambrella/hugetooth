@@ -10,8 +10,8 @@ environment:
 dependencies:
   analytics_core:
     path: ../analytics_core
-  firebase_analytics: ^10.10.6
-  firebase_core: ^2.31.1
+  firebase_analytics: ^11.2.0
+  firebase_core: ^3.2.0
   flutter:
     sdk: flutter
 
