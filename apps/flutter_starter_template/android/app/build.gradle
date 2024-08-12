@@ -29,6 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    // TODO: Change this to your package name
     namespace "com.dougtodd.flutter_starter_template"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
@@ -80,16 +81,19 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
+            // TODO: Change the app name
             manifestPlaceholders = [appName: "Flutter Starter Template"]
         }
         staging {
             dimension "default"
             applicationIdSuffix ".stg"
+            // TODO: Change the app name
             manifestPlaceholders = [appName: "[STG] Flutter Starter Template"]
         }
         development {
             dimension "default"
             applicationIdSuffix ".dev"
+            // TODO: Change the app name
             manifestPlaceholders = [appName: "[DEV] Flutter Starter Template"]
         }
     }

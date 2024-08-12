@@ -23,9 +23,10 @@ Template app has been tested and works with deep links.
 ---
 
 ## App Icon 📱
-TODO: Update this documentation with learnings and any pitfalls.
-
 Use [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) package (which supports flavors).
+
+Comments:
+- Android foreground icon needs a lot of padding to work well
 
 Other options:
 - https://pub.dev/packages/icons_launcher
@@ -33,59 +34,28 @@ Other options:
 ---
 
 ## Splash Screen 💦
-TODO: Update this documentation with learnings and any pitfalls.
-
 Use [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) package (which supports flavors).
+
+Comments:
+- Launcher icon is used by default on Android 12+
 
 ---
 
-## App Name 🔤
+## App Name & ID 🔤
 ### Flutter - `pubspec.yaml`
 ```yaml
 name: new_app_name
 ```
 
-### Android - `android/app/build.gradle`
-```gradle
-android {
-    namespace "com.dougtodd.flutter_starter_template" // <---- here
+### Android 
+Follow TODOs in the following files
+- `android/app/build.gradle`
+- `android/app/main/AndroidManifest.xml`
+- `android/app/main/kotlin/**` - Update the folder structure to match package name
+- `android/app/main/kotlin/**/MainActivity.kt`
 
-    // ------ //
-
-    defaultConfig {
-        applicationId "com.dougtodd.flutter_starter_template" // <---- here
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-    }
-
-    // ------ //
-
-    flavorDimensions "default"
-    productFlavors { 
-        production {
-            dimension "default"
-            applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Flutter Starter Template"] // <---- here
-        }
-        staging {
-            dimension "default"
-            applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Flutter Starter Template"] // <---- here
-        }
-        development {
-            dimension "default"
-            applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Flutter Starter Template"] // <---- here
-        }
-    }
-    // ------ //
-}
-```
-
-### iOS - `ios/Runner/Info.plist`
-Open up XCode -> Build Settings -> Search for variables used in `Info.plist` and update to desired values.
+### iOS 
+- `ios/Runner/Info.plist`
 
 ---
 
