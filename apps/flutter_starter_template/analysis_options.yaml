@@ -3,7 +3,10 @@ linter:
   rules:
     public_member_api_docs: false
     lines_longer_than_80_chars: false
+    flutter_style_todos: false
 
 analyzer:
   plugins:
     - custom_lint
+  exclude:
+    - lib/l10n/**

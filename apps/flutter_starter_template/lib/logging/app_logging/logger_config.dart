@@ -15,6 +15,9 @@ class AppLogFilter extends LogFilter {
     // Log everything in dev and staging
     if (_flavor == Flavor.dev || _flavor == Flavor.staging) {
       return true;
+      // Log everything in debug mode
+    } else if (kDebugMode) {
+      return true;
       // Log only errors in production
     } else if (event.level.value >= Level.error.value) {
       return true;

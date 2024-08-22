@@ -32,7 +32,7 @@ class ProviderLogger extends ProviderObserver {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    _logger.e(
+    _logger.w(
       '${provider.name ?? provider.runtimeType} error',
       error: error,
       stackTrace: stackTrace,

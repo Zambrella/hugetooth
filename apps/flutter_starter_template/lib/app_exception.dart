@@ -1,16 +1,15 @@
 import 'package:auth_core/auth_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_template/l10n/gen_l10n/app_localizations.dart';
 
-extension ExceptionX<T> on AsyncError<T> {
-  /// Returns a helpful, translated, error message for the exception attached to the [AsyncError].
+extension ObjectExceptionX on Object {
+  /// Returns a helpful, translated, error message if the [Object] is expected to be an [Exception] or [Error].
   /// This is intended to be used for messages that will be shown to the user.
   /// This should be called in the widget and not in the business logic/provider.
   String errorMessage(BuildContext context) {
     final loc = AppLocalizations.of(context);
-    if (error is Exception) {
-      return switch (error as Exception) {
+    if (this is Exception) {
+      return switch (this as Exception) {
         final AuthException authException => switch (authException) {
             WrongPasswordException() => loc.wrongPassword,
             InvalidEmailException() => loc.invalidEmail,
@@ -26,7 +25,7 @@ extension ExceptionX<T> on AsyncError<T> {
         final Exception exception => '${loc.unknownError} - ${formatException(exception)}',
       };
     } else {
-      return error.toString();
+      return toString();
     }
   }
 }

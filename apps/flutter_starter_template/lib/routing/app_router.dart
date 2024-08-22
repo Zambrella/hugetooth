@@ -26,6 +26,7 @@ GoRouter goRouter(GoRouterRef ref) {
     initialLocation: '/home',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
+    // ignore: deprecated_member_use
     refreshListenable: GoRouterRefreshStream(ref.watch(authStateChangesProvider.stream)),
     redirect: (context, state) {
       final path = state.uri.path;

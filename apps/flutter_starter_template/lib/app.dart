@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,10 +7,11 @@ import 'package:flutter_starter_template/authentication/providers/authentication
 import 'package:flutter_starter_template/authentication/providers/login_provider.dart';
 import 'package:flutter_starter_template/l10n/gen_l10n/app_localizations.dart';
 import 'package:flutter_starter_template/routing/app_router.dart';
-import 'package:flutter_starter_template/theme/dark_theme.dart';
-import 'package:flutter_starter_template/theme/light_theme.dart';
+import 'package:flutter_starter_template/theme/app_theme.dart';
+import 'package:flutter_starter_template/theme/form_factor.dart';
 import 'package:flutter_starter_template/theme/selected_theme.dart';
 import 'package:flutter_starter_template/theme/text_scale_factor_clamper.dart';
+import 'package:toastification/toastification.dart';
 
 class App extends ConsumerStatefulWidget {
   const App({super.key});
@@ -22,6 +24,29 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
+  }
+
+  late FormFactor formFactor;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    formFactor = getFormFactor(context);
+  }
+
+  /// Helper method to get form factor based on width of device
+  static FormFactor getFormFactor(BuildContext context) {
+    final mediaQueryWidth = MediaQuery.of(context).size.width;
+
+    if (mediaQueryWidth <= FormFactor.mobile.breakpoint) {
+      return FormFactor.mobile;
+    } else if (mediaQueryWidth <= FormFactor.laptop.breakpoint) {
+      return FormFactor.tablet;
+    } else if (mediaQueryWidth <= FormFactor.desktop.breakpoint) {
+      return FormFactor.laptop;
+    } else {
+      return FormFactor.desktop;
+    }
   }
 
   @override
@@ -44,33 +69,47 @@ class _AppState extends ConsumerState<App> {
 
     final initDependencies = ref.watch(serviceInitialisationProvider);
     final goRouter = ref.watch(goRouterProvider);
-    return MaterialApp.router(
-      routerConfig: goRouter,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: ref.watch(selectedThemeProvider).maybeWhen(
-            orElse: () => ThemeMode.system,
-            data: (themeMode) => themeMode,
-          ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      builder: (context, child) {
-        // Wrap with InheritedWidgets here if needed. E.g. One that overrides the text scale factor
-        return initDependencies.when(
-          skipLoadingOnRefresh: false,
-          data: (_) => TextScaleFactorClamper(
-            child: child!,
-          ),
-          // Loading screen is handled by the native splash screen on the first load.
-          // If there's an error and the user refreshes, the loading screen will be shown.
-          loading: () => const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-          error: (_, __) {
-            // Logging the error is handled by the provider observer.
-            return const AppStartupErrorWidget();
+    return DynamicColorBuilder(
+      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+        return MaterialApp.router(
+          routerConfig: goRouter,
+          theme: AppTheme.lightThemeData.copyWith(colorScheme: lightDynamic?.harmonized()),
+          highContrastTheme: AppTheme.hcLightThemeData.copyWith(colorScheme: lightDynamic?.harmonized()),
+          darkTheme: AppTheme.darkThemeData.copyWith(colorScheme: darkDynamic?.harmonized()),
+          highContrastDarkTheme: AppTheme.hcDarkThemeData.copyWith(colorScheme: darkDynamic?.harmonized()),
+          themeMode: ref.watch(selectedThemeProvider).maybeWhen(
+                orElse: () => ThemeMode.system,
+                data: (themeMode) => themeMode,
+              ),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          builder: (context, child) {
+            // Wrap with InheritedWidgets here if needed. E.g. One that overrides the text scale factor
+            return initDependencies.when(
+              skipLoadingOnRefresh: false,
+              data: (_) => TextScaleFactorClamper(
+                child: ToastificationConfigProvider(
+                  config: const ToastificationConfig(
+                    alignment: Alignment.topCenter,
+                  ),
+                  child: FormFactorWidget(
+                    formFactor: formFactor,
+                    child: child!,
+                  ),
+                ),
+              ),
+              // Loading screen is handled by the native splash screen on the first load.
+              // If there's an error and the user refreshes, the loading screen will be shown.
+              loading: () => const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              error: (_, __) {
+                // Logging the error is handled by the provider observer.
+                return const AppStartupErrorWidget();
+              },
+            );
           },
         );
       },

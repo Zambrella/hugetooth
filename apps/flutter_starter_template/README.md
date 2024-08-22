@@ -56,6 +56,7 @@ Follow TODOs in the following files
 
 ### iOS 
 - `ios/Runner/Info.plist`
+- Runner Bundle Identifier
 
 ---
 
@@ -80,22 +81,44 @@ Secrets and API keys should ideally **not** be stored in envrionment variables. 
 ## Theming 🌈
 Theming is all handled in the `lib/theme` directory.
 
-A common theme is defined in `common_theme.dart` which handles all theming that isn't related to colours.
+Colours are generated using the [FlexSeedScheme](https://pub.dev/packages/flex_seed_scheme) package as this offers a more flexible way of generated a colour palette by allowing you to pass in more than just a primary colour.
 
-There is then `light_theme.dart` and `dark_theme.dart` which copies the `common_theme` and adds the relevant colours and brightness. The `MaterialApp` then uses these themes.
+There is a common colour scheme which should include most theming options unless colour is involved. This common theme is then copied to generate the light and dark themes.
 
-NOTE: This might not be the best way to do it so it might change in the future
+`app.dart` includes `DynamicColorBuilder` which injects the OS's colour scheme which then updates the app's colour scheme by harminising with it.
+
 
 ### Extensions
 Theme extensions provide a robust mechanism to extend and customize the default theming capabilities. Currently implemented are:
-- `SpacingTheme` - Sizes that will mostly be used for padding and gap spacing. These could probably just be constants.
+- `SpacingTheme` - Sizes that will mostly be used for padding and gap spacing.
 - `DurationTheme` - Different durations that can be used by animations so the app uses consistent timings throughout.
-- `ModalTheme` - ???
+- `ModalTheme` - Defines the min and max width for modals which can then be used to constrain dialogs.
+- `SemanticColorsTheme` - Specifies colours with meaning. E.g. success, warning, error, info. This extension is specified in the specific colour scheme as the colours should be harmonized with the primary colour to maintain consistency.
+- `RadiusTheme` - Defines different sizes of radius to be used throughout the app.
 
 ### Text scale factor clamper
 This widget wraps the entire app and prevents the font from getting too big or small when the user has adjusted the font size in the OS settings. Although it would be ideal to not have to do this, some apps just can't handle it if the font gets too large.
 
+---
 
+## Toast Messages
+Showing user transient toast messages is handled using the [toastification](https://pub.dev/packages/toastification) package. There are a number of custom extensions for showing pre-configured types of messages (info, warning, error, success). These can be shown by calling `toastification.error(...)`.
+
+There is also a top level widget called `ToastificationConfigProvider` which provides some global settings.
+
+## Logging
+Logging is handled using the [logger](https://pub.dev/packages/logger) package. It is configured in `bootstrap.dart` with some custom filters and outputs. The default setup is to log and output everything in `development` and `staging` environments but only errors and higher in `production` and only if it is in not in debug mode. I.e. If the app is in release mode and the `production` flavour, nothing gets printed to the console and only errors (and worse) will be logged to a repository (e.g. Crashlytics).
+
+`Riverpod` has an observer which logs changes using `logger`. Any errors observed by `Riverpod` are logged at the `warning` level so as to not log errors to the output unless explicitly called, either by calling a method on the `LoggingRepository` or `logger.e()`.
+
+```dart
+ref.read(errorLoggingRepositoryProvider).logException(...);
+ref.read(loggerProvider).e(...);
+```
+
+For any logging that is required "above" the domain level (e.g. Repositories), use `developer.log()` and include the `name` parameter.
+
+Note: There is [currently a bug](https://pub.dev/packages/logger#colors) where printed outputs don't look good on MacOS.
 ---
 
 ## CI/CD 🚝
@@ -103,7 +126,7 @@ This widget wraps the entire app and prevents the font from getting too big or s
 ---
 
 ## Exceptions ⚠️
-There is an extension for `AsyncError` which will loop through all known `Exception` types and create a helpful error message for the user.
+There is an extension for `Object` which will loop through all known `Exception` and `Error` types and create a helpful error message for the user.
 When creating new exceptions, you should add a suitable error message to the relevant `.arb` files and add it as an option in `app_exceptions.dart`.
 
 There is also a helpful function that will take a plain `Exception` type and remove the `Exception: ` prefix and return it as a `String`.

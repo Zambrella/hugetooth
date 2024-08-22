@@ -23,6 +23,16 @@ extension DurationThemeExtension on ThemeData {
   DurationTheme get appDurations => extension<DurationTheme>()!;
 }
 
+extension SemanticColorsThemeExtension on ThemeData {
+  /// Usage example: Theme.of(context).semanticColors;
+  SemanticColorsTheme get semanticColors => extension<SemanticColorsTheme>()!;
+}
+
+extension RadiusThemeExtension on ThemeData {
+  /// Usage example: Theme.of(context).appRadius;
+  RadiusTheme get appRadius => extension<RadiusTheme>()!;
+}
+
 class ModalTheme extends ThemeExtension<ModalTheme> {
   const ModalTheme({
     this.maxWidth = 800,
@@ -150,6 +160,85 @@ class DurationTheme extends ThemeExtension<DurationTheme> {
       regular: lerpDuration(regular, other.regular, t),
       slow: lerpDuration(slow, other.slow, t),
       verySlow: lerpDuration(verySlow, other.verySlow, t),
+    );
+  }
+}
+
+class SemanticColorsTheme extends ThemeExtension<SemanticColorsTheme> {
+  const SemanticColorsTheme({
+    this.error = Colors.red,
+    this.success = Colors.green,
+    this.warning = Colors.orange,
+    this.info = Colors.blue,
+  });
+
+  final Color error;
+  final Color success;
+  final Color warning;
+  final Color info;
+
+  @override
+  SemanticColorsTheme copyWith({
+    Color? error,
+    Color? success,
+    Color? warning,
+    Color? info,
+  }) {
+    return SemanticColorsTheme(
+      error: error ?? this.error,
+      success: success ?? this.success,
+      warning: warning ?? this.warning,
+      info: info ?? this.info,
+    );
+  }
+
+  @override
+  ThemeExtension<SemanticColorsTheme> lerp(covariant ThemeExtension<SemanticColorsTheme>? other, double t) {
+    if (other is! SemanticColorsTheme) {
+      return this;
+    }
+    return SemanticColorsTheme(
+      error: Color.lerp(error, other.error, t) ?? error,
+      success: Color.lerp(success, other.success, t) ?? success,
+      warning: Color.lerp(warning, other.warning, t) ?? warning,
+      info: Color.lerp(info, other.info, t) ?? info,
+    );
+  }
+}
+
+class RadiusTheme extends ThemeExtension<RadiusTheme> {
+  const RadiusTheme({
+    this.small = 4.0,
+    this.medium = 8.0,
+    this.large = 16.0,
+  });
+
+  final double small;
+  final double medium;
+  final double large;
+
+  @override
+  RadiusTheme copyWith({
+    double? small,
+    double? medium,
+    double? large,
+  }) {
+    return RadiusTheme(
+      small: small ?? this.small,
+      medium: medium ?? this.medium,
+      large: large ?? this.large,
+    );
+  }
+
+  @override
+  ThemeExtension<RadiusTheme> lerp(covariant ThemeExtension<RadiusTheme>? other, double t) {
+    if (other is! RadiusTheme) {
+      return this;
+    }
+    return RadiusTheme(
+      small: lerpDouble(small, other.small, t)!,
+      medium: lerpDouble(medium, other.medium, t)!,
+      large: lerpDouble(large, other.large, t)!,
     );
   }
 }

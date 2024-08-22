@@ -100,14 +100,14 @@ void registerErrorHandlers(Logger logger) {
       error: details.exception,
       stackTrace: details.stack,
     );
-    //? I think this should just be a widget, not a whole page
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text('An error occurred'),
-      ),
-      body: Center(child: Text(details.toString())),
-    );
+    if (kDebugMode) {
+      return ErrorWidget(details.exception);
+    } else {
+      return const ColoredBox(
+        color: Colors.red,
+        child: Text('An error occured rendering this element'),
+      );
+    }
   };
 }
 

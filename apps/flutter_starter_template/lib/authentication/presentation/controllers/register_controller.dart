@@ -16,6 +16,7 @@ class RegisterController extends _$RegisterController {
   Future<void> register() async {
     state = const AsyncLoading();
     try {
+      await Future<void>.delayed(const Duration(seconds: 2));
       final _ = await ref.read(authRepositoryProvider).signUp(
             email: '1234@test.com',
             password: '123456',

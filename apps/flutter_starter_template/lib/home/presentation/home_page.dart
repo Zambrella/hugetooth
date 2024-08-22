@@ -25,16 +25,19 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     ref.listen(logoutControllerProvider, (prev, next) {
       if (next is AsyncData) {
-        print('User logged out');
+        // print('User logged out');
         // context.goNamed(AppRoute.login.name);
       }
 
       if (next is AsyncLoading) {
-        print('Loading...');
+        // print('Loading...');
       }
     });
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -94,6 +97,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               value: true,
               onChanged: (_) {},
             ),
+            const Text('This is some random text'),
           ],
         ),
       ),
