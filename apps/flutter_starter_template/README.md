@@ -33,7 +33,7 @@ Other options:
 
 ---
 
-## Splash Screen 💦
+## Splash Screen 💧
 Use [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) package (which supports flavors).
 
 Comments:
@@ -101,12 +101,14 @@ This widget wraps the entire app and prevents the font from getting too big or s
 
 ---
 
-## Toast Messages
+## Toast Messages 🍞
 Showing user transient toast messages is handled using the [toastification](https://pub.dev/packages/toastification) package. There are a number of custom extensions for showing pre-configured types of messages (info, warning, error, success). These can be shown by calling `toastification.error(...)`.
 
 There is also a top level widget called `ToastificationConfigProvider` which provides some global settings.
 
-## Logging
+---
+
+## Logging 🪵
 Logging is handled using the [logger](https://pub.dev/packages/logger) package. It is configured in `bootstrap.dart` with some custom filters and outputs. The default setup is to log and output everything in `development` and `staging` environments but only errors and higher in `production` and only if it is in not in debug mode. I.e. If the app is in release mode and the `production` flavour, nothing gets printed to the console and only errors (and worse) will be logged to a repository (e.g. Crashlytics).
 
 `Riverpod` has an observer which logs changes using `logger`. Any errors observed by `Riverpod` are logged at the `warning` level so as to not log errors to the output unless explicitly called, either by calling a method on the `LoggingRepository` or `logger.e()`.
@@ -119,6 +121,14 @@ ref.read(loggerProvider).e(...);
 For any logging that is required "above" the domain level (e.g. Repositories), use `developer.log()` and include the `name` parameter.
 
 Note: There is [currently a bug](https://pub.dev/packages/logger#colors) where printed outputs don't look good on MacOS.
+
+---
+
+## Analytics 📈
+As the different analytics SDKs can have quite different APIs I have created an `AnalyticsFacade` that encompasses the complexity of wrangling the different platforms. This will contain methods for tracking events that are important to the bussiness and can then call methods on the relevant repositories.
+
+For example; screen tracking may be desirable for sending to Google Analytics and Mixpanel, but not so useful for sending to Branch.
+
 ---
 
 ## CI/CD 🚝
