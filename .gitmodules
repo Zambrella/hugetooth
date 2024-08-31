@@ -4,3 +4,6 @@
 [submodule "apps/challenge_assist"]
 	path = apps/challenge_assist
 	url = https://github.com/Zambrella/challenge-assist.git
+[submodule "apps/endure_companion"]
+	path = apps/endure_companion
+	url = git@github.com:Zambrella/endure_companion.git
