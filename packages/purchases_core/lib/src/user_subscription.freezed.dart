@@ -16,9 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserSubscription {
+  /// Whether the user is subscribed.
   bool get isSubscribed => throw _privateConstructorUsedError;
+
+  /// The date the subscription expires.
   DateTime? get expirationDate => throw _privateConstructorUsedError;
+
+  /// The type of subscription. E.g. 'Premium', 'Plus'.
   String? get subscriptionType => throw _privateConstructorUsedError;
+
+  /// Whether the subscription will automatically renew.
   bool? get willRenew => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
@@ -190,12 +197,19 @@ class _$UserSubscriptionImpl extends _UserSubscription {
       required this.willRenew})
       : super._();
 
+  /// Whether the user is subscribed.
   @override
   final bool isSubscribed;
+
+  /// The date the subscription expires.
   @override
   final DateTime? expirationDate;
+
+  /// The type of subscription. E.g. 'Premium', 'Plus'.
   @override
   final String? subscriptionType;
+
+  /// Whether the subscription will automatically renew.
   @override
   final bool? willRenew;
 
@@ -316,12 +330,20 @@ abstract class _UserSubscription extends UserSubscription {
   const _UserSubscription._() : super._();
 
   @override
+
+  /// Whether the user is subscribed.
   bool get isSubscribed;
   @override
+
+  /// The date the subscription expires.
   DateTime? get expirationDate;
   @override
+
+  /// The type of subscription. E.g. 'Premium', 'Plus'.
   String? get subscriptionType;
   @override
+
+  /// Whether the subscription will automatically renew.
   bool? get willRenew;
   @override
   @JsonKey(ignore: true)
@@ -392,13 +414,20 @@ class _$UserSubscriptionEmptyImpl extends _UserSubscriptionEmpty {
       this.willRenew})
       : super._();
 
+  /// Whether the user is subscribed.
   @override
   @JsonKey()
   final bool isSubscribed;
+
+  /// The date the subscription expires.
   @override
   final DateTime? expirationDate;
+
+  /// The type of subscription. E.g. 'Premium', 'Plus'.
   @override
   final String? subscriptionType;
+
+  /// Whether the subscription will automatically renew.
   @override
   final bool? willRenew;
 
@@ -518,12 +547,20 @@ abstract class _UserSubscriptionEmpty extends UserSubscription {
   const _UserSubscriptionEmpty._() : super._();
 
   @override
+
+  /// Whether the user is subscribed.
   bool get isSubscribed;
   @override
+
+  /// The date the subscription expires.
   DateTime? get expirationDate;
   @override
+
+  /// The type of subscription. E.g. 'Premium', 'Plus'.
   String? get subscriptionType;
   @override
+
+  /// Whether the subscription will automatically renew.
   bool? get willRenew;
   @override
   @JsonKey(ignore: true)
